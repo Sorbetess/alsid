@@ -3,7 +3,7 @@ package alsid.model.chance;
 import alsid.model.asset.Asset;
 import alsid.model.game.Player;
 
-public class RentModifierChance extends Chance {
+public class RentModifierChance extends Chance implements AssetApplicable {
 
     private boolean isTemp;
     private double modifier;
@@ -48,10 +48,6 @@ public class RentModifierChance extends Chance {
     }
 
     @Override
-    public String useEffect(Player player) {
-        return "RentModifierChance only used on Assets";
-    }
-
     public String useEffect(Asset asset)
     {
         if (isTemp)

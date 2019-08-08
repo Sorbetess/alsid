@@ -8,6 +8,11 @@ public class Bank implements Payable {
 
     private double money;
 
+    public Bank(int nPlayerCount)
+    {
+        money = 2500 * nPlayerCount;
+    }
+
     @Override
     public String payTo(Payable payee, double amount) {
         money -= amount;
@@ -28,6 +33,11 @@ public class Bank implements Payable {
 
     public double getMoney() {
         return money;
+    }
+
+    public void setMoney(double money)
+    {
+        this.money = money;
     }
 
     public String toString()

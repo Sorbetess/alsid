@@ -5,7 +5,7 @@ import alsid.model.game.Player;
 /**
  * Class template for the get out of jail free card.
  */
-public class GetOutOfJailChance extends Chance {
+public class GetOutOfJailChance extends Chance implements PlayerApplicable{
 
     public GetOutOfJailChance()
     {

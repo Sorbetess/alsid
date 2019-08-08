@@ -26,7 +26,6 @@ public class ChanceSpace implements Space {
     public ChanceSpace(Deck deck)
     {
         this.deck = deck;
-        //TODO sharmaine
         imgView = new ImageView(new Image("/alsid/assets/tile-chance.png"));
     }
 

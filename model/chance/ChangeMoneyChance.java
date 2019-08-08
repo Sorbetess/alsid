@@ -5,7 +5,7 @@ import alsid.model.game.Player;
 
 import java.util.Random;
 
-public class ChangeMoneyChance extends Chance {
+public class ChangeMoneyChance extends Chance implements PlayerApplicable{
 
     private int amount;
     private Bank bank = null;

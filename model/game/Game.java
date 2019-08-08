@@ -12,7 +12,7 @@ public class Game
 	private Deck 				chanceDeck;
 
 	//SHARMAINE
-	private double 				cashBank;
+	private Bank				bank;
 	private int 				currentPlayer = 0;
 	private Random 				dice = new Random();
 
@@ -23,12 +23,17 @@ public class Game
 	public Game ()
 	{
 		players = new ArrayList<>();
-		chanceDeck = new Deck();
+		chanceDeck = new Deck(this);
 	}
 
 	public void initBoard()
 	{
 		gameBoard = new Board(players.size());
+	}
+
+	public void initBank()
+	{
+		bank = new Bank(players.size());
 	}
 
 	public Board getBoard()
@@ -46,14 +51,9 @@ public class Game
 		return currentPlayer;
 	}
 
-	public double getCashBank()
+	public Bank getBank()
 	{
-		return cashBank;
-	}
-
-	public void setCashBank(double cash)
-	{
-		this.cashBank = cash;
+		return bank;
 	}
 
 	public void addPlayer(Player player)
@@ -95,7 +95,7 @@ public class Game
 					return;
 				}
 			} else {
-				player.getChanceCards().get(hasGOJF).useEffect(player);
+				player.getChanceCards().get(hasGOJF).discard();
 			}
 		}
 
@@ -151,7 +151,7 @@ public class Game
 		}
 
 		//check if the bank is out of cash
-		if(cashBank <= 0)
+		if(bank.isBankrupt())
 			return BANK_EMPTY;
 
 		return 0;

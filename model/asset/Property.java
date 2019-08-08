@@ -204,7 +204,6 @@ public class Property extends Asset {
      * @return Number of same-color property groups.
      */
     public int getOwnerCount() {
-        //TODO sharmaine
         ArrayList <Property> asTemp;
         if(isOwned())
         {

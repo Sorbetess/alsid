@@ -198,8 +198,8 @@ public class GameScreenController
         sprite4.setTranslateY(20);
 
         //TODO implement bank class
-        game.setCashBank(2500 * game.getPlayers().size());
-        bankMoney.setText("The Bank currently has $" + game.getCashBank() + ".");
+        game.initBank();
+        bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
     }
 
     @FXML
@@ -297,9 +297,8 @@ public class GameScreenController
         //landed on START space
         if (newPosition == 0)
         {
-            currentPlayer.add(200);
-            game.setCashBank(game.getCashBank() - 200);
-            bankMoney.setText("The Bank currently has $" + game.getCashBank() + ".");
+            game.getBank().payTo(currentPlayer, 200);
+            bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
             message.setText(message.getText() + "Collected $200. ");
 
             nextTurn(true);
@@ -456,10 +455,9 @@ public class GameScreenController
 
         if (newPosition != 0 && newPosition < oldPosition)
         {
-            currentPlayer.add(200);
-            game.setCashBank(game.getCashBank() - 200);
+            game.getBank().payTo(currentPlayer, 200);
             message.setText(message.getText() + " Collected $200. ");
-            bankMoney.setText("The Bank currently has $" + game.getCashBank() + ".");
+            bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
 
             updatePlayers();
         }

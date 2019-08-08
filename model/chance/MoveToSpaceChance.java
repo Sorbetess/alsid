@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Class template for cards that move the player to a certain asset (property, utility, railroad).
  */
-public class MoveToSpaceChance extends Chance {
+public class MoveToSpaceChance extends Chance implements PlayerApplicable{
 
     private Space space;
     private int spaceLocation;
@@ -19,8 +19,6 @@ public class MoveToSpaceChance extends Chance {
     public MoveToSpaceChance(int effect, Board board)
     {
         super(effect);
-
-
 
         switch (effect)
         {
@@ -31,7 +29,7 @@ public class MoveToSpaceChance extends Chance {
                 setText("You have a class at " + ((Asset) space).getName() + ". If you pass HENRY GROUNDS, do not collect $200.");
             } break;
 
-            case Chance.GO_TO_UTIL:
+            case Chance.GO_TO_UTIL: // TODO: Add function to get nearest utility
             {
                 canCollectStart = true;
                 assignRandomSpace(Board.UTILITY, board);

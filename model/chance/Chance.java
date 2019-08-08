@@ -102,12 +102,6 @@ public abstract class Chance
     }
 
     /**
-     * Abstract method that applies this chance card's effect to the <code>player</code>.
-     * @return <code>true</code> if effect is applied successfully.
-     */
-    public abstract String useEffect(Player player);
-
-    /**
      * Checks if the card's effect if of a certain type.
      * @param type Type to be checked.
      * @return <code>true</code> if effects match.
@@ -124,5 +118,15 @@ public abstract class Chance
     public void setText(String text)
     {
         this.strDialogue = text;
+    }
+
+    public void discard()
+    {
+        owner = null;
+    }
+
+    public boolean isOwned()
+    {
+        return owner != null;
     }
 }
