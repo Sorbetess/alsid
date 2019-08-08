@@ -13,19 +13,12 @@ import javafx.scene.image.ImageView;
  */
 public class ChanceSpace implements Space {
 
-    private Deck        deck;
     private int         nPosition;
     private ImageView imgView;
 
     public ChanceSpace()
     {
         //TODO sharmaine
-        imgView = new ImageView(new Image("/alsid/assets/tile-chance.png"));
-    }
-
-    public ChanceSpace(Deck deck)
-    {
-        this.deck = deck;
         imgView = new ImageView(new Image("/alsid/assets/tile-chance.png"));
     }
 
@@ -63,8 +56,6 @@ public class ChanceSpace implements Space {
      */
     @Override
     public String onLand(Player player) {
-        Chance drawnCard = deck.draw();
-        // TODO: Connect to controller
 
         return player.getName() + " landed on the " + toString() + " space.";
     }
