@@ -573,20 +573,10 @@ public class GameScreenController
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayer());
         Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
 
-        if(currentSpace instanceof Property)
+        if(currentSpace instanceof Asset)
         {
-            currentPlayer.purchase((Property) currentSpace);
-            message.setText(currentPlayer.getName() + " has purchased " + ((Property) currentSpace).getName() + ". ");
-        }
-        else if(currentSpace instanceof Railroad)
-        {
-            currentPlayer.purchase((Railroad) currentSpace);
-            message.setText(currentPlayer.getName() + " has purchased " + ((Railroad) currentSpace).getName() + ". ");
-        }
-        else if(currentSpace instanceof Utility)
-        {
-            currentPlayer.purchase((Utility) currentSpace);
-            message.setText(currentPlayer.getName() + " has purchased " + ((Utility) currentSpace).getName() + ". ");
+            currentPlayer.purchase((Asset) currentSpace);
+            message.setText(currentPlayer.getName() + " has purchased " + ((Asset) currentSpace).getName() + ". ");
         }
 
         nextTurn(true);
