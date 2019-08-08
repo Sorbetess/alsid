@@ -65,7 +65,6 @@ public class ChanceSpace implements Space {
     public String onLand(Player player) {
         Chance drawnCard = deck.draw();
         // TODO: Connect to controller
-        drawnCard.useEffect(player);
 
         return player.getName() + " landed on the " + toString() + " space.";
     }
