@@ -214,51 +214,13 @@ public class Player implements Payable
 	 * @param prop The model.asset.asset being purchased by <code>this</code> player.
 	 * @return 	<code>true</code> if purchase is successful
      */
-	public boolean purchase (Property prop)
+	public boolean purchase (Asset asset)
 	{
-		if (!prop.isOwned())
+		if (!asset.isOwned())
 		{
-			add(-1 * prop.getPrice());
-			add(prop);
-			prop.setOwner(this);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-     * Decreases <code>this</code> player's money after purchasing the railroad,
-	 * adds the railroad to <code>this</code> player's model.asset.asset <code>ArrayList</code>, and
-	 * sets the ownership of the railroad to <code>this</code> player.
-	 * @param 	rail	The railroad being purchased by <code>this</code> player.
-	 * @return 	<code>true</code> if purchase is successful
-     */
-	public boolean purchase (Railroad rail)
-	{
-		if (!rail.isOwned())
-		{
-			add(-1 * rail.getPrice());
-			add(rail);
-			rail.setOwner(this);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-     * Decreases <code>this</code> player's money after purchasing the utility,
-	 * adds the utility to <code>this</code> player's model.asset.asset <code>ArrayList</code>, and
-	 * sets the ownership of the utility to <code>this</code> player.
-	 * @param 	util	The utility being purchased by <code>this</code> player.
-	 * @return 	<code>true</code> if purchase is successful
-     */
-	public boolean purchase (Utility util)
-	{
-		if (!util.isOwned())
-		{
-			add(-1 * util.getPrice());
-			add(util);
-			util.setOwner(this);
+			add(-1 * asset.getPrice());
+			add(asset);
+			asset.setOwner(this);
 			return true;
 		}
 		return false;
@@ -288,8 +250,7 @@ public class Player implements Payable
 	{
 		if (prop.isOwned() && !prop.getOwner().equals(this))
 		{
-			this.add(-1 * prop.getRent());
-			prop.getOwner().add(prop.getRent());
+			payTo(prop.getOwner(), prop.getRent());
 			prop.incRentCollected(prop.getRent());
 			prop.resetTempMod();
 			return true;
@@ -306,8 +267,7 @@ public class Player implements Payable
 	{	
 		if(rail.isOwned() && !rail.getOwner().equals(this))
 		{
-			this.add(-1 * rail.getRent());
-			rail.getOwner().add(rail.getRent());
+			payTo(rail.getOwner(), rail.getRent());
 			rail.resetTempMod();
 			return true;
 		}
@@ -324,8 +284,7 @@ public class Player implements Payable
 	{	
 		if (util.isOwned() && !util.getOwner().equals(this))
 		{
-			this.add(-1 * util.getRent() * nDiceRoll);
-			util.getOwner().add(util.getRent() * nDiceRoll);
+			payTo(util.getOwner(), util.getRent() * nDiceRoll);
 			util.resetTempMod();
 			return true;
 		}
@@ -410,27 +369,6 @@ public class Player implements Payable
 	public void setPosition (int position)
 	{
 		this.nPosition = position;
-	}
-
-	/**
-	 * Changes the ownership of the Asset <code>toTrade</code> with the <code>trader</code>'s Asset <code>offer</code>.
-	 * @param toTrade Asset that <code>this</code> player owns to trade
-	 * @param trader Player to trade with
-	 * @param offer Asset that the <code>trader</code> is offering
-	 */
-	public void trade(Asset toTrade, Player trader, Asset offer) // Can they trade any type of ownable or is it just Property and Property, etc. ANS: Up to you
-	{
-		toTrade.setOwner(trader);
-		if (toTrade instanceof Property)
-		{
-			((Property) toTrade).resetFootTraffic();
-		}
-
-		offer.setOwner(this);
-		if (offer instanceof Property)
-		{
-			((Property) offer).resetFootTraffic();
-		}
 	}
 
 	//TODO sharmaine
