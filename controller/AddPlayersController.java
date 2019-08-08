@@ -116,6 +116,7 @@ public class AddPlayersController
             else
             {
                 game.initBoard();
+                game.getChanceDeck().initChance(game);
                 GameScreenController nextController = new GameScreenController(game);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/alsid/view/GameScreen.fxml"));

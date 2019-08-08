@@ -23,7 +23,7 @@ public class Game
 	public Game ()
 	{
 		players = new ArrayList<>();
-		chanceDeck = new Deck(this);
+		chanceDeck = new Deck();
 	}
 
 	public void initBoard()
@@ -54,6 +54,10 @@ public class Game
 	public Bank getBank()
 	{
 		return bank;
+	}
+
+	public Deck getChanceDeck() {
+		return chanceDeck;
 	}
 
 	public void addPlayer(Player player)

@@ -18,7 +18,11 @@ public class Deck {
     /**
      * Constructor for the starting deck in the game.
      */
-    public Deck(Game game) {
+    public Deck() {
+    }
+	
+	public void initChance(Game game)
+    {
         Random rand = new Random();
 
         Chance  GOJF1 = new GetOutOfJailChance(),
@@ -57,16 +61,12 @@ public class Deck {
 
 
         cards.addAll(Arrays.asList (GOJF1, GOJF2,
-                                    goToAsset1, goToAsset2, goToAsset3, goToAsset4, goToAsset5, goToAsset6,
-                                    getMoney1, getMoney2, getMoney3, getMoney4, getMoney5, getMoney6,
-                                    moveToSpace1, moveToSpace2, moveToSpace3, moveToSpace4,
-                                    rentModifier1, rentModifier2, rentModifier3, rentModifier4, rentModifier5, rentModifier6, rentModifier7,
-                                    loseMoney1, loseMoney2, loseMoney3));
-
-        shuffle();
+                goToAsset1, goToAsset2, goToAsset3, goToAsset4, goToAsset5, goToAsset6,
+                getMoney1, getMoney2, getMoney3, getMoney4, getMoney5, getMoney6,
+                moveToSpace1, moveToSpace2, moveToSpace3, moveToSpace4,
+                rentModifier1, rentModifier2, rentModifier3, rentModifier4, rentModifier5, rentModifier6, rentModifier7,
+                loseMoney1, loseMoney2, loseMoney3));
     }
-	
-	
 	
 	//...GETTERS
 	
