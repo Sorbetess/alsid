@@ -212,6 +212,10 @@ public class Player implements Payable
 	 * adds the property to <code>this</code> player's model.asset.asset <code>ArrayList</code>, and
 	 * sets the ownership of <code>this</code> property to <code>this</code> player.
 	 * @param prop The model.asset.asset being purchased by <code>this</code> player.
+     * Decreases <code>this</code> player's money after purchasing the asset,
+	 * adds the property to <code>this</code> player's Asset <code>ArrayList</code>, and
+	 * sets the ownership of <code>this</code> Asset <code>this</code> player.
+	 * @param asset Asset being purchased by <code>this</code> player.
 	 * @return 	<code>true</code> if purchase is successful
      */
 	public boolean purchase (Asset asset)
