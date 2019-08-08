@@ -18,7 +18,6 @@ public class ChanceSpace implements Space {
 
     public ChanceSpace()
     {
-        //TODO sharmaine
         imgView = new ImageView(new Image("/alsid/assets/tile-chance.png"));
     }
 

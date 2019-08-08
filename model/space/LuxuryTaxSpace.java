@@ -14,7 +14,6 @@ public class LuxuryTaxSpace implements Space {
 
     public LuxuryTaxSpace()
     {
-        //TODO sharmaine
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
     }
 

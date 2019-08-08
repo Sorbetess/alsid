@@ -20,7 +20,6 @@ public class Railroad extends Asset {
      */
     public Railroad(String strName) {
         super(strName, PRICE);
-        //TODO sharmaine
         super.setImage(new Image("/alsid/assets/tile-railroad.png"));
     }
 	

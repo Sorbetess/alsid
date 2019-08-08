@@ -371,8 +371,6 @@ public class Player implements Payable
 		this.nPosition = position;
 	}
 
-	//TODO sharmaine
-
 	/**
 	 * Changes the ownership of the Asset <code>toTrade</code> with the <code>trader</code>'s Asset <code>offer</code>.
 	 * @param otherPlayer Player to trade with
@@ -399,7 +397,7 @@ public class Player implements Payable
 	 * @return
 	 */
 	@Override
-	public String payTo(Payable payee, double amount) { // TODO Lance: New Function
+	public String payTo(Payable payee, double amount) {
 		dMoney -= amount;
 		payee.add(amount);
 

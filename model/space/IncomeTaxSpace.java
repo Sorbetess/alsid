@@ -14,7 +14,6 @@ public class IncomeTaxSpace implements Space {
 
     public IncomeTaxSpace()
     {
-        //TODO sharmaine
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
     }
 

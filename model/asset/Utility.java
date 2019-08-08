@@ -19,7 +19,6 @@ public class Utility extends Asset {
      */
     public Utility(String strName) {
         super(strName, PRICE);
-        //TODO sharmaine
         super.setImage(new Image("/alsid/assets/tile-utility.png"));
     }
 	

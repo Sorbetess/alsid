@@ -77,7 +77,6 @@ public class Board
 
         //initializing utilities
 
-        //TODO sharmaine
         Asset wifi  = new Utility("Wi-Fi");
         Asset water = new Utility("Water");
 
@@ -94,7 +93,6 @@ public class Board
 
         //initializing four corners
 
-        //TODO sharmaine
         NoEventSpace start = new NoEventSpace("CADS");
         NoEventSpace freeParking = new NoEventSpace("FREE PARKING");
         CommunityServiceSpace church = new CommunityServiceSpace(null);

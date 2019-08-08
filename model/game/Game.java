@@ -75,7 +75,7 @@ public class Game
 	{
 		/* Steps:
 		0. In jail?
-			i. Has Get-Out-Of-Jail-Free Card: Use it TODO: Give option to use GOJF or use immediately?
+			i. Has Get-Out-Of-Jail-Free Card: Use it
 			ii: :( : Pay 50, Check for win condition
 		*/
 		Player player = players.get(currentPlayer);
@@ -155,5 +155,10 @@ public class Game
 			return BANK_EMPTY;
 
 		return 0;
+	}
+
+	public ArrayList<Player> rankPlayers()
+	{
+		return null; // TODO Implement rank players
 	}
 }
