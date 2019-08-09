@@ -7,8 +7,8 @@ public class Railroad extends Asset {
 	
 	//...ATTRIBUTES
 
-    private static final double PRICE = 200;
-    private static final double[] RENT_LEVELS = {25, 50, 100};
+    private static final double     PRICE = 200;
+    private static final double[]   RENT_LEVELS = {25, 50, 100};
 
 
 
@@ -58,9 +58,7 @@ public class Railroad extends Asset {
 
     @Override
     public String getInfo() {
-        String info = "";
-
-        info += this.getName();
+        String info = this.getName();
 
         if (this.isOwned())
             info += " (owned by " + this.getOwner().getName() + ")";
