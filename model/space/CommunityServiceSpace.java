@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
  */
 public class CommunityServiceSpace implements Space {
 
-    public static double PAYMENT = 50;
-
     private int nPosition = 16;
     private ImageView imgView;
     private Bank bank;
@@ -60,14 +58,14 @@ public class CommunityServiceSpace implements Space {
      */
     @Override
     public String onLand(Player player) {
-        player.payTo(bank,-PAYMENT);
+        player.payTo(bank,-50);
 
         return player.getName() + " landed on " + toString() + "!";
     }
 
     public double getTax()
     {
-        return PAYMENT;
+        return 50;
     }
 
     @Override

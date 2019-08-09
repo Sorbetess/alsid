@@ -197,7 +197,7 @@ public class GameScreenController
         sprite3.setTranslateY(20);
         sprite4.setTranslateY(20);
 
-        game.initBank();
+
         bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
     }
 

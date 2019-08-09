@@ -14,8 +14,9 @@ public class LuxuryTaxSpace implements Space {
     private ImageView imgView;
     private Bank bank;
 
-    public LuxuryTaxSpace()
+    public LuxuryTaxSpace(Bank bank)
     {
+        this.bank = bank;
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
     }
 

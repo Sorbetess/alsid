@@ -20,19 +20,19 @@ public class Board
     public static final int		SPACE_COUNT = 32,
 
                              	START = 0,
-                        		COMMUNITY_SERVICE = 7,
-                             	FREE_PARKING = 15,
-                        		JAIL = 23,
+                        		COMMUNITY_SERVICE = 8,
+                             	FREE_PARKING = 16,
+                        		JAIL = 24,
 
                                 PROPERTY = 1,
                                 UTILITY = 2,
                                 RAILROAD = 3;
 
-    public Board(int nPlayerCount)
+    public Board(int nPlayerCount, Bank bank)
     {
         spaces = new ArrayList<>();
         this.nPlayerCount = nPlayerCount;
-        initSpaces();
+        initSpaces(bank);
     }
 
     public void setPlayerCount(int nPlayerCount)
@@ -40,7 +40,7 @@ public class Board
         this.nPlayerCount = nPlayerCount;
     }
 
-    private void initSpaces()
+    private void initSpaces(Bank bank)
     {
         //initializing all properties
 
@@ -82,8 +82,8 @@ public class Board
 
         //initializing tax spaces
 
-        IncomeTaxSpace incomeTax = new IncomeTaxSpace();
-        LuxuryTaxSpace luxuryTax = new LuxuryTaxSpace();
+        IncomeTaxSpace incomeTax = new IncomeTaxSpace(bank);
+        LuxuryTaxSpace luxuryTax = new LuxuryTaxSpace(bank);
 
         //initializing chance spaces
 

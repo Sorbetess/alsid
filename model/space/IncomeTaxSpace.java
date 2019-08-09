@@ -14,8 +14,9 @@ public class IncomeTaxSpace implements Space {
     private ImageView imgView;
     private Bank bank;
 
-    public IncomeTaxSpace()
+    public IncomeTaxSpace(Bank bank)
     {
+        this.bank = bank;
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
     }
 

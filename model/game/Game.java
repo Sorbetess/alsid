@@ -28,7 +28,7 @@ public class Game
 
 	public void initBoard()
 	{
-		gameBoard = new Board(players.size());
+		gameBoard = new Board(players.size(), bank);
 	}
 
 	public void initBank()
