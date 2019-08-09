@@ -4,6 +4,6 @@ import alsid.model.asset.Asset;
 
 public interface AssetApplicable {
 
-    public String useEffect(Asset asset);
+    String useEffect(Asset asset);
 
 }
