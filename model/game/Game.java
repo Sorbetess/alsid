@@ -79,71 +79,7 @@ public class Game
 		currentPlayer = (currentPlayer + 1) % players.size();
 	}
 
-	public void playerTurn()
-	{
-		/* Steps:
-		0. In jail?
-			i. Has Get-Out-Of-Jail-Free Card: Use it
-			ii: :( : Pay 50, Check for win condition
-		*/
-		Player player = players.get(currentPlayer);
-		if (player.getPosition() == Board.JAIL)
-		{
-			int hasGOJF = -1; /* GOJF = Get Out of Jail Free */
-			for	(int i = 0; i < player.getChanceCards().size() && hasGOJF == -1; i++)
-			{
-				if (player.getChanceCards().get(i).isType(Chance.GET_OUT_OF_JAIL)) {
-					hasGOJF = i;
-				}
-			}
 
-			if (hasGOJF != -1) {
-				player.add(-50);
-				if (checkGameEnd() != 0) {
-					return;
-				}
-			} else {
-				player.getChanceCards().get(hasGOJF).discard();
-			}
-		}
-
-		/*
-		1. Roll
-		*/
-		int nDice = dice.nextInt();
-		int prevSpace = player.getPosition();
-
-		/*
-		2. Advance that many steps
-		*/
-		player.move(nDice);
-
-		/*
-		3. Passed go? Add 200: Do nothing
-		*/
-
-		if (player.getPosition() - prevSpace <= 0)
-		{
-			player.add(200);
-		}
-
-		/*
-		4. Check model.space landed:
-			a. START / Free Parking: Do nothing
-			b. Tax Space / Community Service: Pay fine
-			c. model.game.Chance: Draw card; apply effect
-			d. Property:
-				i. Unowned: Purchase / Do Nothing
-				ii. Owned by c.p.: Develop
-				iii. Owned by a.p.: Pay Rent / Trade
-			e. Utility / Railroad:
-				i. Unowned: Purchase / Do Nothing
-				ii. Owned by c.p.: Do Nothing
-				iii. Owned by a.p.: Pay Rent / Trade
-		5. if 4.b,c,d happen: Check for win condition
-		 */
-		gameBoard.getSpaces().get(player.getPosition()).onLand(player);
-	}
 
 	public int checkGameEnd ()
 	{
@@ -165,8 +101,49 @@ public class Game
 		return 0;
 	}
 
-	public ArrayList<Player> rankPlayers()
+	public void rankPlayers()
 	{
-		return null; // TODO Implement rank players
+		boolean hasTie = false;
+
+		for(int i = 0; i < getPlayers().size(); i++)
+		{
+			for (int j = 0; j < getPlayers().size(); j++)
+			{
+				if (i != j && getPlayers().get(i).getNetWorth() == getPlayers().get(j).getNetWorth())
+				{
+					hasTie = true;
+				}
+			}
+		}
+
+		if(!hasTie)
+		{
+			getPlayers().sort((o1, o2) ->
+			{
+				if (o1.getNetWorth() == o2.getNetWorth()) {
+					return 0;
+				} else if (o1.getNetWorth() > o2.getNetWorth()) {
+					return 1;
+				}
+
+				return -1;
+			});
+		}
+
+		else if(hasTie)
+		{
+			getPlayers().sort((o1, o2) ->
+			{
+				if (o1.getMoney() == o2.getMoney()) {
+					return 0;
+				} else if (o1.getMoney() > o2.getMoney()) {
+					return 1;
+				}
+
+				return -1;
+			});
+		}
+
+		Collections.reverse(getPlayers());
 	}
 }

@@ -498,6 +498,18 @@
             </Button>
         </HBox>
 
+        <Button fx:id="endGame" mnemonicParsing="false" visible="false"
+                style= "-fx-background-color: transparent; -fx-cursor: hand;"
+                GridPane.rowIndex="4" GridPane.columnIndex="2"
+                GridPane.columnSpan="5" GridPane.halignment="CENTER"
+                onAction="#handleEndGameButtonAction">
+            <graphic>
+                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="/alsid/assets/button-start-game.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
         <ImageView fitHeight="330.0" fitWidth="330.0" GridPane.halignment="CENTER"
                    pickOnBounds="true" preserveRatio="true"
                    GridPane.rowIndex = "5" GridPane.columnIndex = "2"

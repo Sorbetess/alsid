@@ -1,6 +1,7 @@
 package alsid.model.chance;
 
 import alsid.model.asset.Asset;
+import alsid.model.asset.Property;
 import alsid.model.game.Player;
 
 /**
@@ -66,6 +67,13 @@ public class RentModifierChance extends Chance implements AssetApplicable {
             asset.modifyRentTemp(modifier);
         else
             asset.modifyRentPerm(modifier);
+
+        if(getEffect() == Chance.RENOVATION)
+        {
+            asset.getOwner().add((-25 * ((Property) asset).getHouseCount()) +
+                    (-50 * (((Property) asset).getHouseCount() < 5 ? 0: ((Property) asset).getHouseCount() - 4)));
+            return "Paid renovation costs. " + asset.getName() + "'s rent is multiplied by " + modifier + "x.";
+        }
 
         return asset.getName() + "'s rent is multiplied by " + modifier + "x.";
     }

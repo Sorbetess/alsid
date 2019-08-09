@@ -20,8 +20,8 @@ public abstract class Asset implements Space {
     private int nPosition;
     private ImageView imgView;
 
-    private int nRentPermMod = 1;
-    private int nRentTempMod = 1;
+    private double nRentPermMod = 1;
+    private double nRentTempMod = 1;
 
     //...CONSTRUCTOR
 
@@ -98,7 +98,7 @@ public abstract class Asset implements Space {
      * Gets the price modifier to this Asset.
      * @return Rent modifier.
      */
-    public int getRentPermMod() {
+    public double getRentPermMod() {
         return nRentPermMod;
     }
 
@@ -106,7 +106,7 @@ public abstract class Asset implements Space {
      * Gets the temporary price modifier to this Asset.
      * @return Temporary rent modifier.
      */
-    public int getRentTempMod() {
+    public double getRentTempMod() {
         return nRentTempMod;
     }
 

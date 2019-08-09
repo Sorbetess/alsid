@@ -74,6 +74,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 {
                     canCollectStart = true;
                     space = board.getSpaces().get(board.getNearestUtility(player));
+                    spaceLocation = space.getPosition();
                     setText("You need to request something from " + ((Asset) space).getName() + ". Collect $200 if you pass CADS.");
                 } break;
 
@@ -81,6 +82,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 {
                     canCollectStart = true;
                     space = board.getSpaces().get(board.getNearestRailroad(player));
+                    spaceLocation = space.getPosition();
                     setText("Pass by " + ((Asset) space).getName() + " on your way to class! Collect $200 if you pass CADS.");
                 } break;
 

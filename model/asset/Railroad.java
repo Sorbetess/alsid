@@ -67,7 +67,7 @@ public class Railroad extends Asset {
      */
     @Override
     public String getInfo() {
-        String info = this.getName();
+        String info = this.getName() + " (" + getRentTempMod() + " " + getRentPermMod() + ") ";
 
         if (this.isOwned())
             info += " (owned by " + this.getOwner().getName() + ")";
