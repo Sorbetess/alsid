@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Class for board. This keeps track of each of the spaces.
+ */
 public class Board
 {
     private ArrayList <Space>   spaces;
@@ -26,16 +29,15 @@ public class Board
                                 UTILITY = 2,
                                 RAILROAD = 3;
 
+    /**
+     * Constructor for the board.
+     * @param nPlayerCount Number of players in this game
+     */
     public Board(int nPlayerCount)
     {
         spaces = new ArrayList<>();
         this.nPlayerCount = nPlayerCount;
         initSpaces();
-    }
-
-    public void setPlayerCount(int nPlayerCount)
-    {
-        this.nPlayerCount = nPlayerCount;
     }
 
     private void initSpaces()
