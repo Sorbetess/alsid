@@ -1,6 +1,5 @@
 package alsid.model.asset;
 
-import alsid.model.game.Player;
 import javafx.scene.image.Image;
 
 /**

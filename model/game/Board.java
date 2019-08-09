@@ -6,11 +6,9 @@ import alsid.model.asset.Railroad;
 import alsid.model.asset.Utility;
 import alsid.model.space.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Random;
 
 public class Board
 {

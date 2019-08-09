@@ -1,7 +1,5 @@
 package alsid.model.game;
 
-import alsid.model.chance.Chance;
-
 import java.util.*;
 
 
@@ -83,14 +81,13 @@ public class Game
 
 	public int checkGameEnd ()
 	{
-		for (int i = 0; i < players.size(); i++)
-		{
+		for (Player player : players) {
 			//check if a player does not have enough money to pay for rent, tax or fine
-			if (players.get(i).isBankrupt())
+			if (player.isBankrupt())
 				return PLAYER_BANKRUPT;
 
 			//check if a player owns 2 full sets of properties with the same color
-			if(players.get(i).getFullSetCount() >= 2)
+			if (player.getFullSetCount() >= 2)
 				return TWO_FULL_SETS;
 		}
 
@@ -130,7 +127,7 @@ public class Game
 			});
 		}
 
-		else if(hasTie)
+		else
 		{
 			getPlayers().sort((o1, o2) ->
 			{

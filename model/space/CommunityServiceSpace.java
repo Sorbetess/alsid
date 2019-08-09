@@ -1,6 +1,5 @@
 package alsid.model.space;
 
-import alsid.model.game.Bank;
 import alsid.model.game.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

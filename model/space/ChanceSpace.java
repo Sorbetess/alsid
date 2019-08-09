@@ -1,9 +1,5 @@
 package alsid.model.space;
 
-import alsid.controller.GameScreenController;
-import alsid.model.chance.Chance;
-import alsid.model.chance.GetOutOfJailChance;
-import alsid.model.game.Deck;
 import alsid.model.game.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -2,7 +2,6 @@ package alsid.model.chance;
 
 import alsid.model.asset.Asset;
 import alsid.model.asset.Property;
-import alsid.model.game.Player;
 
 /**
  * Class for chance cards that modify the rent of an asset.

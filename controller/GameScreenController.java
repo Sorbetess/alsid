@@ -251,7 +251,7 @@ public class GameScreenController
         rollDice.setVisible(false);
         pass.setVisible(false);
 
-        /**int number = new Random().nextInt(6) + 1;
+        /*int number = new Random().nextInt(6) + 1;
 
         diceRoll = number;*/
 
@@ -266,22 +266,17 @@ public class GameScreenController
 
 
 
-        Timeline move = new Timeline(new KeyFrame(Duration.millis(350), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event)
+        Timeline move = new Timeline(new KeyFrame(Duration.millis(350), event1 -> {
+            board.getChildren().remove(sprites.get(currTurn));
+            if (currPlayer.getPosition() == 31)
             {
-                board.getChildren().remove(sprites.get(currTurn));
-                if (currPlayer.getPosition() == 31)
-                {
-                    board.add(sprites.get(currTurn), index[0][1], index[0][0]);
-                    currPlayer.setPosition(0);
-                }
-                else
-                {
-                    board.add(sprites.get(currTurn), index[currPlayer.getPosition() + 1][1], index[currPlayer.getPosition() + 1][0]);
-                    currPlayer.setPosition(currPlayer.getPosition() + 1);
-                }
+                board.add(sprites.get(currTurn), index[0][1], index[0][0]);
+                currPlayer.setPosition(0);
+            }
+            else
+            {
+                board.add(sprites.get(currTurn), index[currPlayer.getPosition() + 1][1], index[currPlayer.getPosition() + 1][0]);
+                currPlayer.setPosition(currPlayer.getPosition() + 1);
             }
         }));
 
@@ -307,8 +302,10 @@ public class GameScreenController
             boolean hasGOJF = false;
 
             for(int i = 0; i < currPlayer.getChanceCards().size(); i++)
-                if (currPlayer.getChanceCards().get(i) instanceof GetOutOfJailChance)
+                if (currPlayer.getChanceCards().get(i) instanceof GetOutOfJailChance) {
                     hasGOJF = true;
+                    break;
+                }
 
             if(!hasGOJF)
             {
@@ -724,7 +721,7 @@ public class GameScreenController
 
         chanceDrawn = game.getChanceDeck().draw();
 
-        /**do {
+        /*do {
             chanceDrawn = game.getChanceDeck().draw();
         } while(!(chanceDrawn instanceof MoveToSpaceChance));*/
 

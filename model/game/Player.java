@@ -12,7 +12,7 @@ public class Player implements Payable
 	
 	private String 	strName;
 	private int 	nNumber;
-	private int 	nPosition = 0;
+	private int 	nPosition;
 	private Image 	img;
 	
 	private double 				dMoney = 1500;
@@ -197,17 +197,14 @@ public class Player implements Payable
 	
 	/**
      * Removes the model.asset.asset from <code>this</code> player's <code>ArrayList</code> of assets.
-     * @param 	asset 	Asset to be removed from <code>this</code> player.
-	 * @return	<code>true</code> if removal is successful
-     */
-	public boolean removeAsset (Asset asset)
+     * @param    asset    Asset to be removed from <code>this</code> player.
+	 */
+	public void removeAsset (Asset asset)
 	{
 		if (assets.contains(asset))
 		{
 			assets.remove(asset);
-			return true;
 		}
-		return false;
 	}
 	
 	
@@ -216,33 +213,27 @@ public class Player implements Payable
 	 * adds the property to <code>this</code> player's Asset <code>ArrayList</code>, and
 	 * sets the ownership of <code>this</code> Asset <code>this</code> player.
 	 * @param asset Asset being purchased by <code>this</code> player.
-	 * @return 	<code>true</code> if purchase is successful
-     */
-	public boolean purchase (Asset asset)
+	 */
+	public void purchase (Asset asset)
 	{
 		if (!asset.isOwned())
 		{
 			add(-1 * asset.getPrice());
 			add(asset);
 			asset.setOwner(this);
-			return true;
 		}
-		return false;
 	}
 	
 	/**
      * Develops the property (constructs one house).
-	 * @param 	prop 	The property to be developed by the owner.
-     * @return 	<code>true</code> if development is successful
-     */
-	public boolean develop (Property prop)
+	 * @param    prop    The property to be developed by the owner.
+	 */
+	public void develop (Property prop)
 	{
 		if (prop.canDevelop() && prop.getOwner().equals(this)) {
 			prop.incHouseCount();
 			this.add(-1 * prop.getHousePrice());
-			return true;
-		}	
-		return false;
+		}
 	}
 	
 	/**

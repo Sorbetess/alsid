@@ -1,8 +1,6 @@
 package alsid.model.asset;
 
 import javafx.scene.image.Image;
-import alsid.model.game.Player;
-import alsid.model.chance.Chance;
 
 import java.util.ArrayList;
 
@@ -254,10 +252,12 @@ public class Property extends Asset {
                 }
             });
             asTemp.removeIf(prop -> prop.getColor() != this.getColor()); // Remove all properties that are not the same color
-            
-            for (int i = 0; i < asTemp.size(); i++) {
-                if (asTemp.get(i).getHouseCount() != FULLY_DEVELOPED)
+
+            for (Property property : asTemp) {
+                if (property.getHouseCount() != FULLY_DEVELOPED) {
                     canDevelop = false;
+                    break;
+                }
             }
         }
 
