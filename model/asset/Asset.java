@@ -5,6 +5,10 @@ import alsid.model.space.Space;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Abstract class for the Asset. This encompasses all spaces on the board that can be bought and owned
+ * by the players.
+ */
 public abstract class Asset implements Space {
 	
 	//...ATTRIBUTES
@@ -133,7 +137,7 @@ public abstract class Asset implements Space {
 
     /**
      * Changes this Asset's position on the board.
-     * @param position   New position of the Asset.
+     * @param position New position of the Asset.
      */
     public void setPosition(int position)
     {
@@ -189,7 +193,7 @@ public abstract class Asset implements Space {
     /**
      * Returns the message dialogue to appear when a player lands on this Asset.
      * @param player Player who landed on this asset.
-     * @return String Message dialogue to display.
+     * @return String message dialogue to display.
      */
     public String onLand(Player player)
     {

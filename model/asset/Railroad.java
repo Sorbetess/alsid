@@ -10,8 +10,6 @@ public class Railroad extends Asset {
     private static final double     PRICE = 200;
     private static final double[]   RENT_LEVELS = {25, 50, 100};
 
-
-
 	//...CONSTRUCTOR
 	
     /**

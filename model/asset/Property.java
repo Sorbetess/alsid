@@ -7,7 +7,8 @@ import alsid.model.chance.Chance;
 import java.util.ArrayList;
 
 /**
- * 
+ * Class for properties. These make up the majority of the board, and the rent for this
+ * is calculated by its development level.
  */
 public class Property extends Asset {
 	
@@ -61,7 +62,7 @@ public class Property extends Asset {
     private double  dRentCollected = 0;
     private int     nFootCount = 0;
     private int     nHouseCount = 0;
-    
+
     //...CONSTRUCTOR
 
     /**
@@ -86,13 +87,13 @@ public class Property extends Asset {
 
         switch(nColor)
         {
-            case 1: super.setImage(new Image("/alsid/assets/tile-color-gray.png")); break;
-            case 2: super.setImage(new Image("/alsid/assets/tile-color-purple.png")); break;
-            case 3: super.setImage(new Image("/alsid/assets/tile-color-pink.png")); break;
-            case 4: super.setImage(new Image("/alsid/assets/tile-color-blue.png")); break;
-            case 5: super.setImage(new Image("/alsid/assets/tile-color-green.png")); break;
-            case 6: super.setImage(new Image("/alsid/assets/tile-color-red.png")); break;
-            case 7: super.setImage(new Image("/alsid/assets/tile-color-orange.png")); break;
+            case COLOR_GRAY: super.setImage(new Image("/alsid/assets/tile-color-gray.png")); break;
+            case COLOR_PURPLE: super.setImage(new Image("/alsid/assets/tile-color-purple.png")); break;
+            case COLOR_PINK: super.setImage(new Image("/alsid/assets/tile-color-pink.png")); break;
+            case COLOR_GREEN: super.setImage(new Image("/alsid/assets/tile-color-blue.png")); break;
+            case COLOR_BLUE: super.setImage(new Image("/alsid/assets/tile-color-green.png")); break;
+            case COLOR_RED: super.setImage(new Image("/alsid/assets/tile-color-red.png")); break;
+            case COLOR_ORANGE: super.setImage(new Image("/alsid/assets/tile-color-orange.png")); break;
         }
     }
 
@@ -260,8 +261,8 @@ public class Property extends Asset {
             }
         }
 
-        if (this.getHouseCount() >= HOTEL ||
-            this.getFootCount() < getFootMax())
+        if (this.getHouseCount() >= HOTEL || // Can't develop past hotel
+            this.getFootCount() < getFootMax()) // Has not reached foot traffic limit
         {
             canDevelop = false;
         }
@@ -280,6 +281,10 @@ public class Property extends Asset {
         nFootCount = 0;
     }
 
+    /**
+     * Returns this property's name along with its development level
+     * @return String form of it's name and number of houses
+     */
     @Override
     public String toString()
     {
@@ -291,6 +296,10 @@ public class Property extends Asset {
         return super.getName() + "\n\uD83C\uDFE8";
     }
 
+    /**
+     * Returns a summary of the property's attributes in String
+     * @return String form of property attributes
+     */
     @Override
     public String getInfo()
     {
@@ -300,23 +309,23 @@ public class Property extends Asset {
              info += " (owned by " + this.getOwner().getName() + ")";
         else info += " (unowned)";
 
-        if(this.getHouseCount() <= 4)
+        if(this.getHouseCount() <= FULLY_DEVELOPED)
             info += "\n" + this.getHouseCount() + "\uD83C\uDFE0";
         else info += "\n\uD83C\uDFE8";
 
-        info += "\nPrice: $" + this.getPrice() +
-                "\nPrice every develop: $" + this.getHousePrice();
+        info += "\nPurchase Price: $" + this.getPrice() +
+                "\nDevelop Price: $" + this.getHousePrice();
 
         if(this.isOwned())
         {
-            info += "\nFoot Count: " + this.getFootCount() + "/" + this.getFootMax();
+            info += "\nFoot count: " + this.getFootCount() + " / " + this.getFootMax();
 
             if(this.canDevelop())
                 info += "\nCan develop: YES";
             else info += "\nCan develop: NO";
 
             info += "\nRent: $" + this.getRent() +
-                    "\nRent collected: $" + this.getRentCollected();
+                    "\nCollected: $" + this.getRentCollected();
         }
 
         return info;
