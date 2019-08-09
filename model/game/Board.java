@@ -174,4 +174,36 @@ public class Board
 
         return filteredSpaces;
     }
+
+    public int getNearestUtility(Player player)
+    {
+        int i = (player.getPosition() + 1) % spaces.size() ;
+        while (i != player.getPosition() - 1
+                && !(spaces.get(i) instanceof Utility))
+        {
+            i = (i + 1) % spaces.size();
+        }
+
+        if (!(spaces.get(i) instanceof Utility))
+        {
+            return -1;
+        }
+        return i;
+    }
+
+    public int getNearestRailroad(Player player)
+    {
+        int i = (player.getPosition() + 1) % spaces.size() ;
+        while (i != player.getPosition() - 1
+                && !(spaces.get(i) instanceof Railroad))
+        {
+            i = (i + 1) % spaces.size();
+        }
+
+        if (!(spaces.get(i) instanceof Railroad))
+        {
+            return -1;
+        }
+        return i;
+    }
 }
