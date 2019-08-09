@@ -7,6 +7,9 @@ import alsid.model.game.Player;
  */
 public class GetOutOfJailChance extends Chance implements PlayerApplicable{
 
+    /**
+     * Constructor for a get out of jail free card.
+     */
     public GetOutOfJailChance()
     {
         super(Chance.GET_OUT_OF_JAIL,
@@ -24,6 +27,10 @@ public class GetOutOfJailChance extends Chance implements PlayerApplicable{
         return player.toString() + " got a " + toString() + "! ";
     }
 
+    /**
+     * Returns the name of this card. To be used in more general purposes.
+     * @return Name of this card.
+     */
     @Override
     public String toString()
     {

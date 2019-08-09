@@ -3,6 +3,10 @@ package alsid.model.asset;
 import alsid.model.game.Player;
 import javafx.scene.image.Image;
 
+/**
+ * Class for utility. A utility's rent is dependent on the die roll
+ * and how much other utilities does its owner have.
+ */
 public class Utility extends Asset {
 	
 	//...ATTRIBUTES
@@ -24,6 +28,11 @@ public class Utility extends Asset {
     }
 
     //...SETTERS
+
+    /**
+     * Passes the dice value landed on by the current player.
+     * @param dice Dice value
+     */
     public void setDiceRoll (int dice)
     {
         this.diceRoll = dice;
@@ -51,12 +60,20 @@ public class Utility extends Asset {
         return (getOwnerCount() >= 2 ? 10 : 4) * getRentPermMod() * getRentTempMod();
     }
 
+    /**
+     * Returns the name of this utility. To be used in more general cases.
+     * @return Name of utility.
+     */
     @Override
     public String toString()
     {
         return super.getName();
     }
 
+    /**
+     * Returns a summary of the attributes of this utility.
+     * @return Summary of attributes in String.
+     */
     @Override
     public String getInfo() {
         String info = this.getName();

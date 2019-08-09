@@ -3,6 +3,9 @@ package alsid.model.asset;
 import alsid.model.game.Player;
 import javafx.scene.image.Image;
 
+/**
+ * Class for railroads. This asset's rent levels are the same for all different instances.
+ */
 public class Railroad extends Asset {
 	
 	//...ATTRIBUTES
@@ -48,12 +51,20 @@ public class Railroad extends Asset {
         return getOwner().getRailroads().size();
     }
 
+    /**
+     * Returns the name of this railroad. To be used in more general cases.
+     * @return Name of railroad.
+     */
     @Override
     public String toString()
     {
         return super.getName();
     }
 
+    /**
+     * Returns a summary of the attributes of this railroad.
+     * @return Summary of attributes in String.
+     */
     @Override
     public String getInfo() {
         String info = this.getName();

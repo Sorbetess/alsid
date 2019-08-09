@@ -5,11 +5,19 @@ import alsid.model.game.Player;
 
 import java.util.Random;
 
+/**
+ * Class for chance cards that alter the players money.
+ */
 public class ChangeMoneyChance extends Chance implements PlayerApplicable {
 
     private int amount;
     private Bank bank = null;
 
+    /**
+     * Constructor for chance cards that alter the players money.
+     * @param effect Specific type of effect.
+     * @param bank Bank to get money from, if applicable.
+     */
     public ChangeMoneyChance(int effect, Bank bank)
     {
         super(effect);
@@ -58,6 +66,11 @@ public class ChangeMoneyChance extends Chance implements PlayerApplicable {
         }
     }
 
+    /**
+     * Adds or removes <code>amount</code> from player.
+     * @param player Player affected by effect.
+     * @return String version of event.
+     */
     @Override
     public String useEffect(Player player)
     {

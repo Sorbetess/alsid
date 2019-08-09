@@ -3,11 +3,18 @@ package alsid.model.chance;
 import alsid.model.asset.Asset;
 import alsid.model.game.Player;
 
+/**
+ * Class for chance cards that modify the rent of an asset.
+ */
 public class RentModifierChance extends Chance implements AssetApplicable {
 
     private boolean isTemp;
     private double modifier;
 
+    /**
+     * Construct for rent modifying cards.
+     * @param effect Specific effect.
+     */
     public RentModifierChance(int effect)
     {
         super(effect);
@@ -47,6 +54,11 @@ public class RentModifierChance extends Chance implements AssetApplicable {
         }
     }
 
+    /**
+     * Changes the asset modifier to the specific amount.
+     * @param asset Asset to affect.
+     * @return String message of event.
+     */
     @Override
     public String useEffect(Asset asset)
     {

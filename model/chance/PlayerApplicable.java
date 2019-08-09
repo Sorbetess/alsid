@@ -2,6 +2,9 @@ package alsid.model.chance;
 
 import alsid.model.game.Player;
 
+/**
+ * Interface for objects that apply its effect to another player.
+ */
 public interface PlayerApplicable {
 
     /**

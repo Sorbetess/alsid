@@ -125,11 +125,18 @@ public abstract class Chance
         this.strDialogue = text;
     }
 
+    /**
+     * Discards the card.
+     */
     public void discard()
     {
         owner = null;
     }
 
+    /**
+     * Checks if this card is owned by a player or not.
+     * @return <code>true</code> if owner does not return nulln
+     */
     public boolean isOwned()
     {
         return owner != null;

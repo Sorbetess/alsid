@@ -18,12 +18,22 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
     private boolean canCollectStart;
     private boolean playerCollectedStart;
 
+    /**
+     * Constructor of chance cards that move the player to another space in the board.
+     * @param effect Specific effect.
+     * @param board Board to refenence.
+     */
     public MoveToSpaceChance(int effect, Board board)
     {
         super(effect);
         this.board = board;
     }
 
+    /**
+     * Gets a list of spaces of the chosen type, then assigns it.
+     * @param spaceType Type of space to get.
+     * @param board Board to reference.
+     */
     private void assignRandomSpace(int spaceType, Board board)
     {
         Random rand = new Random();
@@ -42,6 +52,11 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
         return playerCollectedStart;
     }
 
+    /**
+     * Moves the player to the chosen spot and triggers the landing event.
+     * @param player Player affected.
+     * @return String version of event.
+     */
     @Override
     public String useEffect(Player player) {
         if (!isUsed)
