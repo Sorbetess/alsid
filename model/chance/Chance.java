@@ -48,6 +48,11 @@ public abstract class Chance
     	owner = null;
     }
 
+    /**
+     * Another constructor for a chance card, but with a String dialogue to display.
+     * @param effect Effect of this chance card.
+     * @param text Dialogue text to display.
+     */
     public Chance(int effect, String text)
     {
         this(effect);

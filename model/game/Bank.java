@@ -18,7 +18,7 @@ public class Bank implements Payable {
         money -= amount;
         payee.add(amount);
 
-        return toString() + " paid $" + amount + " to " + payee.toString() + ".";
+        return payee.toString() + "collected $" + amount + " from " + toString() + ". ";
     }
 
     @Override

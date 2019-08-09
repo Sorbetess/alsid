@@ -5,11 +5,11 @@ import javafx.scene.image.ImageView;
 
 public interface Space {
 
-    String onLand(Player player);
+    public String onLand(Player player);
 
-    void setPosition(int position);
+    public void setPosition(int position);
 
-    int getPosition();
+    public int getPosition();
 
-    ImageView getImage();
+    public ImageView getImage();
 }

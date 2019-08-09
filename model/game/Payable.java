@@ -2,10 +2,10 @@ package alsid.model.game;
 
 public interface Payable {
 
-    String payTo(Payable payee, double amount);
+    public String payTo(Payable payee, double amount);
 
-    void add(double amount);
+    public void add(double amount);
 
-    boolean isBankrupt();
+    public boolean isBankrupt();
 
 }

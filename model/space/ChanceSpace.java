@@ -54,9 +54,9 @@ public class ChanceSpace implements Space {
      * @param player Player that landed on <code>this</code> space.
      */
     @Override
-    public String onLand(Player player) {
-
-        return player.getName() + " landed on the " + toString() + " space.";
+    public String onLand(Player player)
+    {
+        return player.getName() + " landed on the " + toString() + " space. ";
     }
 
     @Override

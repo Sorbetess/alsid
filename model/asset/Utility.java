@@ -8,6 +8,7 @@ public class Utility extends Asset {
 	//...ATTRIBUTES
 
     private static final double PRICE = 200;
+    private int                 diceRoll;
 	
 	
 
@@ -20,6 +21,12 @@ public class Utility extends Asset {
     public Utility(String strName) {
         super(strName, PRICE);
         super.setImage(new Image("/alsid/assets/tile-utility.png"));
+    }
+
+    //...SETTERS
+    public void setDiceRoll (int dice)
+    {
+        this.diceRoll = dice;
     }
 	
 	
@@ -52,9 +59,7 @@ public class Utility extends Asset {
 
     @Override
     public String getInfo() {
-        String info = "";
-
-        info += this.getName();
+        String info = this.getName();
 
         if (this.isOwned())
             info += " (owned by " + this.getOwner().getName() + ")";
@@ -63,7 +68,7 @@ public class Utility extends Asset {
         info += "\nPrice: $" + this.getPrice();
 
         if (this.isOwned())
-            info += "\nRent: $" + this.getRent();
+            info += "\nOriginal rent: $" + this.getRent() * diceRoll;
 
         return info;
     }

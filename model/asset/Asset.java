@@ -23,6 +23,8 @@ public abstract class Asset implements Space {
 
     /**
      * Constructor for an Asset.
+     * @param strName Name of the Asset.
+     * @param dPrice Price of the Asset.
      */
     public Asset(String strName, double dPrice) {
         this.strName = strName;
@@ -184,8 +186,14 @@ public abstract class Asset implements Space {
         nRentTempMod *= multiplier;
     }
 
-    public String onLand(Player player) {
-        return player.getName() + " landed on " + getName();
+    /**
+     * Returns the message dialogue to appear when a player lands on this Asset.
+     * @param player Player who landed on this asset.
+     * @return String Message dialogue to display.
+     */
+    public String onLand(Player player)
+    {
+        return player.getName() + " landed on " + getName() + ".";
     }
 
 }

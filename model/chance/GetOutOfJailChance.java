@@ -21,7 +21,7 @@ public class GetOutOfJailChance extends Chance implements PlayerApplicable{
     @Override
     public String useEffect(Player player) {
         this.giveTo(player);
-        return player.toString() + " got a " + toString() + "!";
+        return player.toString() + " got a " + toString() + "! ";
     }
 
     @Override

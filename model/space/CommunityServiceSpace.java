@@ -12,15 +12,12 @@ public class CommunityServiceSpace implements Space {
 
     private int nPosition = 16;
     private ImageView imgView;
-    private Bank bank;
 
     /**
      * Constructor for the community service space.
-     * @param bank Bank to pay to when player lands on this space.
      */
-    public CommunityServiceSpace(Bank bank)
+    public CommunityServiceSpace()
     {
-        this.bank = bank;
         imgView = new ImageView(new Image("/alsid/assets/tile-empty.png"));
     }
 
@@ -58,9 +55,7 @@ public class CommunityServiceSpace implements Space {
      */
     @Override
     public String onLand(Player player) {
-        player.payTo(bank,-50);
-
-        return player.getName() + " landed on " + toString() + "!";
+        return player.getName() + " landed on " + toString() + "! ";
     }
 
     public double getTax()

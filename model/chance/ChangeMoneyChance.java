@@ -53,18 +53,19 @@ public class ChangeMoneyChance extends Chance implements PlayerApplicable {
             case Chance.PAY_TAXES:
             {
                 amount = - (rand.nextInt(15) + 1) * 20;
-                setText("You payed $" + -amount + " in taxes.");
+                setText("You paid $" + -amount + " in taxes.");
             } break;
         }
     }
 
     @Override
-    public String useEffect(Player player) {
+    public String useEffect(Player player)
+    {
         if (bank == null) {
             player.add(amount);
-            return player.getName() + ((amount > 0)? " got " + amount: " lost " + -amount);
+            return getEffectDialogue() + "\n\n" + player.getName() + ((amount > 0)? " got " + amount: " lost " + -amount) + ". ";
         } else {
-            return bank.payTo(player, amount);
+            return getEffectDialogue() + "\n\n" + bank.payTo(player, amount);
         }
     }
 }

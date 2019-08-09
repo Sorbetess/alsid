@@ -25,17 +25,17 @@ public class Deck {
     {
         Random rand = new Random();
 
-        Chance  GOJF1 = new GetOutOfJailChance(),
-                GOJF2 = new GetOutOfJailChance(),
+        Chance  /*GOJF1 = new GetOutOfJailChance(),
+                GOJF2 = new GetOutOfJailChance(), */
 
                 goToAsset1 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
                 goToAsset2 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
                 goToAsset3 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
                 goToAsset4 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
                 goToAsset5 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
-                goToAsset6 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard()),
+                goToAsset6 = new MoveToSpaceChance(Chance.GO_TO_PROP + rand.nextInt(3), game.getBoard())//,
 
-                getMoney1 = new ChangeMoneyChance(Chance.BANK_DIVIDEND + rand.nextInt(5), game.getBank()),
+                /*getMoney1 = new ChangeMoneyChance(Chance.BANK_DIVIDEND + rand.nextInt(5), game.getBank()),
                 getMoney2 = new ChangeMoneyChance(Chance.BANK_DIVIDEND + rand.nextInt(5), game.getBank()),
                 getMoney3 = new ChangeMoneyChance(Chance.BANK_DIVIDEND + rand.nextInt(5), game.getBank()),
                 getMoney4 = new ChangeMoneyChance(Chance.BANK_DIVIDEND + rand.nextInt(5), game.getBank()),
@@ -57,15 +57,17 @@ public class Deck {
 
                 loseMoney1 = new ChangeMoneyChance(Chance.DONATE_MONEY + rand.nextInt(2), game.getBank()),
                 loseMoney2 = new ChangeMoneyChance(Chance.DONATE_MONEY + rand.nextInt(2), game.getBank()),
-                loseMoney3 = new ChangeMoneyChance(Chance.DONATE_MONEY + rand.nextInt(2), game.getBank());
+                loseMoney3 = new ChangeMoneyChance(Chance.DONATE_MONEY + rand.nextInt(2), game.getBank())*/;
 
 
-        cards.addAll(Arrays.asList (GOJF1, GOJF2,
-                goToAsset1, goToAsset2, goToAsset3, goToAsset4, goToAsset5, goToAsset6,
-                getMoney1, getMoney2, getMoney3, getMoney4, getMoney5, getMoney6,
+        cards.addAll(Arrays.asList (/*GOJF1, GOJF2, */
+                goToAsset1, goToAsset2, goToAsset3, goToAsset4, goToAsset5, goToAsset6//,
+                /*getMoney1, getMoney2, getMoney3, getMoney4, getMoney5, getMoney6,
                 moveToSpace1, moveToSpace2, moveToSpace3, moveToSpace4,
                 rentModifier1, rentModifier2, rentModifier3, rentModifier4, rentModifier5, rentModifier6, rentModifier7,
-                loseMoney1, loseMoney2, loseMoney3));
+                loseMoney1, loseMoney2, loseMoney3*/));
+
+        shuffle();
     }
 	
 	//...GETTERS

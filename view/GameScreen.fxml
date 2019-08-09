@@ -474,16 +474,29 @@
                GridPane.rowIndex="2" GridPane.columnIndex="2"
                GridPane.rowSpan="3" GridPane.columnSpan="5"/>
 
-        <Button fx:id="startGame" mnemonicParsing="false" GridPane.halignment="CENTER"
-                style= "-fx-background-color: transparent; -fx-cursor: hand;"
-                GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="5"
-                onAction="#handleStartGameButtonAction">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="/alsid/assets/button-start-game.png" />
-                </ImageView>
-            </graphic>
-        </Button>
+        <HBox GridPane.rowIndex="4" GridPane.columnIndex="2"
+              GridPane.columnSpan="5" GridPane.halignment="CENTER">
+
+            <Button fx:id="startGame" mnemonicParsing="false"
+                    style= "-fx-background-color: transparent; -fx-cursor: hand;"
+                    onAction="#handleStartGameButtonAction">
+                <graphic>
+                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="/alsid/assets/button-start-game.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button fx:id="shuffle" mnemonicParsing="false"
+                    style= "-fx-background-color: transparent; -fx-cursor: hand;"
+                    onAction="#handleShuffleButtonAction">
+                <graphic>
+                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="/alsid/assets/button-shuffle.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
 
         <ImageView fitHeight="330.0" fitWidth="330.0" GridPane.halignment="CENTER"
                    pickOnBounds="true" preserveRatio="true"
@@ -740,7 +753,7 @@
 
 
 
-        <Button fx:id="bankrupt" text="END GAME" mnemonicParsing="false"
+        <Button fx:id="bankrupt" text="BANKRUPT" mnemonicParsing="false"
                 style= "-fx-cursor: hand" visible="true"
                 GridPane.rowIndex="11" GridPane.columnIndex="1"
                 onAction="#handleBankruptButtonAction"/>

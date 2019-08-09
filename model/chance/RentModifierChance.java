@@ -36,13 +36,13 @@ public class RentModifierChance extends Chance implements AssetApplicable {
             {
                 isTemp = false;
                 modifier = 1.1;
-                setText("Lucky!\nThe rent of a utility you own increases by 10%!");
+                setText("Lucky!\nThe rent of a utility or railroad you own increases by 10%!");
             } break;
             case Chance.UTIL_RAIL_DEC:
             {
                 isTemp = false;
                 modifier = 0.9;
-                setText("Unlucky...\nThe rent of a utility you own decreases by 10%.");
+                setText("Unlucky...\nThe rent of a utility or railroad you own decreases by 10%.");
             } break;
         }
     }

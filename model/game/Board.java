@@ -28,11 +28,11 @@ public class Board
                                 UTILITY = 2,
                                 RAILROAD = 3;
 
-    public Board(int nPlayerCount, Bank bank)
+    public Board(int nPlayerCount)
     {
         spaces = new ArrayList<>();
         this.nPlayerCount = nPlayerCount;
-        initSpaces(bank);
+        initSpaces();
     }
 
     public void setPlayerCount(int nPlayerCount)
@@ -40,7 +40,7 @@ public class Board
         this.nPlayerCount = nPlayerCount;
     }
 
-    private void initSpaces(Bank bank)
+    private void initSpaces()
     {
         //initializing all properties
 
@@ -82,8 +82,8 @@ public class Board
 
         //initializing tax spaces
 
-        IncomeTaxSpace incomeTax = new IncomeTaxSpace(bank);
-        LuxuryTaxSpace luxuryTax = new LuxuryTaxSpace(bank);
+        IncomeTaxSpace incomeTax = new IncomeTaxSpace();
+        LuxuryTaxSpace luxuryTax = new LuxuryTaxSpace();
 
         //initializing chance spaces
 
@@ -95,7 +95,7 @@ public class Board
 
         NoEventSpace start = new NoEventSpace("CADS");
         NoEventSpace freeParking = new NoEventSpace("FREE PARKING");
-        CommunityServiceSpace church = new CommunityServiceSpace(null);
+        CommunityServiceSpace church = new CommunityServiceSpace();
         NoEventSpace sdfo = new NoEventSpace("SDFO");
 
         spaces.addAll(Arrays.asList(start, andrew, razon, connon, yuchengco, lshall, gokongwei, miguel,
@@ -114,11 +114,12 @@ public class Board
      */
     public void shuffle()
     {
-        ArrayList <Space> spaceTemp = spaces;
+        ArrayList <Space> spaceTemp = new ArrayList<>();
 
+        //temporarily store 4 corners to another ArrayList first
         for (int i = 0; i < 4; i++)
         {
-            spaceTemp.add(spaces.remove(i * 8));
+            spaceTemp.add(spaces.remove((i * 8) - i));
         }
 
         Collections.shuffle(spaces);
@@ -126,6 +127,11 @@ public class Board
         for (int i = 0; i < 4; i++)
         {
             spaces.add(i * 8, spaceTemp.remove(0));
+        }
+
+        for (int i = 0; i <= 31; i++)
+        {
+            spaces.get(i).setPosition(i);
         }
     }
 

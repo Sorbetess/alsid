@@ -21,7 +21,7 @@ public class MainScreen extends Application
     @Override
     public void start (Stage stage) throws Exception
     {
-        this.stage = stage;
+        MainScreen.stage = stage;
 
         // Load FXML file
         Parent root = FXMLLoader.load(getClass().getResource("/alsid/view/MainScreen.fxml"));

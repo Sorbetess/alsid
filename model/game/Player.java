@@ -149,15 +149,6 @@ public class Player implements Payable
 	}
 
 
-
-	//...SETTERS
-
-	public void setImage(/**Image img*/)
-	{
-		img = new Image("/alsid/assets/sprite-lasalle-red.png");
-	}
-
-
 	
 	//...METHODS
 	
@@ -188,7 +179,7 @@ public class Player implements Payable
 	public void add (Chance card)
 	{
 		ownedChance.add(card);
-		card.giveTo(this);
+		//card.giveTo(this);
 	}
 	
 	/**
@@ -246,16 +237,11 @@ public class Player implements Payable
 	 * @param 	prop 				The property <code>this</code> player is currently located at.
 	 * @return 	<code>true</code> if the transaction is successful
      */
-	public boolean payRent (Property prop)
+	public String payRent (Property prop)
 	{
-		if (prop.isOwned() && !prop.getOwner().equals(this))
-		{
-			payTo(prop.getOwner(), prop.getRent());
-			prop.incRentCollected(prop.getRent());
-			prop.resetTempMod();
-			return true;
-		}
-		return false;
+		prop.incRentCollected(prop.getRent());
+		prop.resetTempMod();
+		return payTo(prop.getOwner(), prop.getRent());
 	}
 
 	/**
@@ -263,15 +249,10 @@ public class Player implements Payable
 	 * @param 	rail 	The railroad <code>this</code> player is currently located at.
 	 * @return 	<code>true</code> if the transaction is successful
      */
-	public boolean payRent (Railroad rail)
-	{	
-		if(rail.isOwned() && !rail.getOwner().equals(this))
-		{
-			payTo(rail.getOwner(), rail.getRent());
-			rail.resetTempMod();
-			return true;
-		}
-		return false;
+	public String payRent (Railroad rail)
+	{
+		rail.resetTempMod();
+		return payTo(rail.getOwner(), rail.getRent());
 	}
 
 	/**
@@ -280,15 +261,14 @@ public class Player implements Payable
 	 * @param	nDiceRoll	Current dice roll this turn.
 	 * @return 	<code>true</code> if the transaction is successful
      */
-	public boolean payRent (Utility util, int nDiceRoll)
-	{	
-		if (util.isOwned() && !util.getOwner().equals(this))
-		{
-			payTo(util.getOwner(), util.getRent() * nDiceRoll);
-			util.resetTempMod();
-			return true;
-		}
-		return false;
+	public String payRent (Utility util, int nDiceRoll, boolean ChanceEvent)
+	{
+		util.resetTempMod();
+
+		if(ChanceEvent)
+			return payTo(util.getOwner(), nDiceRoll * 10);
+
+		return payTo(util.getOwner(), util.getRent() * nDiceRoll);
 	}
 
 	/**
@@ -389,18 +369,24 @@ public class Player implements Payable
 		((Property) currentSpace).resetFootTraffic();
 	}
 
+	@Override
+	public String toString()
+	{
+		return this.getName();
+	}
+
 	/**
 	 * Pays the given <code>amount</code> to the <code>payee</code>.
 	 * @param payee Player or bank to receive amount.
 	 * @param amount Money to give.
 	 *
-	 * @return
+	 * @return String dialogue to display.
 	 */
 	@Override
 	public String payTo(Payable payee, double amount) {
 		dMoney -= amount;
 		payee.add(amount);
 
-		return getName() + " paid $" + amount + " to " + payee.toString() + ".";
+		return getName() + " paid ($" + amount + ") to " + payee.toString() + ". ";
 	}
 }

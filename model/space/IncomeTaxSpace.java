@@ -1,6 +1,5 @@
 package alsid.model.space;
 
-import alsid.model.game.Bank;
 import alsid.model.game.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,11 +11,9 @@ public class IncomeTaxSpace implements Space {
 
     private int         nPosition;
     private ImageView imgView;
-    private Bank bank;
 
-    public IncomeTaxSpace(Bank bank)
+    public IncomeTaxSpace()
     {
-        this.bank = bank;
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
     }
 
@@ -48,15 +45,22 @@ public class IncomeTaxSpace implements Space {
         nPosition = position;
     }
 
+    public double getTax(Player player)
+    {
+        if(player.getMoney() * 0.1 <= 200)
+            return 200;
+        else return player.getMoney() * 0.1;
+    }
+
     /**
      * Deducts $200 or 10% of the income of the <code>player</code> that lands on <code>this</code> space, depending on
      * which one is higher.
      * @param player model.game.Player that landed on this space.
      */
     @Override
-    public String onLand(Player player) {
-        player.payTo(bank, (player.getMoney() * 0.1 <= 200)? -200: player.getMoney() * 0.1);
-        return player.getName() + " landed on the " + toString() + " space.";
+    public String onLand(Player player)
+    {
+        return player.getName() + " landed on the " + toString() + " space. ";
     }
 
     @Override

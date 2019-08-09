@@ -1,7 +1,7 @@
 package alsid.controller;
 
 import alsid.model.asset.*;
-import alsid.model.chance.GetOutOfJailChance;
+import alsid.model.chance.*;
 import alsid.model.game.*;
 import alsid.model.space.*;
 
@@ -37,12 +37,14 @@ public class GameScreenController
     private MenuBar[][]             menus;
     private ArrayList<ImageView>    boxes;
 
+    private Chance  currentChance;
     private int     swapposition1   = -1;
     private int     swapposition2   = -1;
     private int     offer           = 0;
     private boolean doneSwapping    = false;
     private boolean isTrading       = false;
     private boolean isChoosingProp  = false;
+    private boolean ChanceEvent     = false;
 
     @FXML
     GridPane board;
@@ -90,7 +92,7 @@ public class GameScreenController
 
     //Button for rolling the dice and starting the game (after swapping is finished).
     @FXML
-    Button rollDice, startGame;
+    Button rollDice, startGame, shuffle;
 
     //Button for purchasing an asset, paying rent, developing a property, and ending the turn.
     @FXML
@@ -178,7 +180,7 @@ public class GameScreenController
         }
         index[8] = new int[]{0, 8};
 
-        message.setText("Welcome to Around La Salle in 80 Days! Please set up the board. Click on two spaces to swap them.");
+        message.setText("Welcome to Around La Salle in 80 Days! Please set up the board. Click on two spaces to swap them, or shuffle.");
 
         updatePlayers();
 
@@ -197,8 +199,8 @@ public class GameScreenController
         sprite3.setTranslateY(20);
         sprite4.setTranslateY(20);
 
-
-        bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
+        game.initBank();
+        updateBank();
     }
 
     @FXML
@@ -248,16 +250,12 @@ public class GameScreenController
         move.setCycleCount(number);
         move.play();
 
-        if(landedSpace instanceof Property)
-        {
-            message.setText(currentPlayer.getName() + " rolled a " +
-                    number + "! Landed on " + ((Property) landedSpace).getName() +
-                    " (" + ((Property) landedSpace).getHouseCount() + "\uD83C\uDFE0). ");
-        }
-        else message.setText(currentPlayer.getName() + " rolled a " + number + "! Landed on " + landedSpace.toString() + ". ");
+        message.setText(currentPlayer.getName() + " rolled a " + number + "! ");
 
         move.setOnFinished(e ->
         {
+            message.setText(landedSpace.onLand(currentPlayer));
+
             try
             {
                 onLand(oldPosition, newPosition, currentPlayer, landedSpace);
@@ -288,7 +286,17 @@ public class GameScreenController
                 currentPlayer.add(-50);
                 message.setText(message.getText() + "Paid $50 to get out of jail. ");
             }
-            else message.setText(message.getText() + "Used Get Out Of Jail Card. ");
+            else
+            {
+                message.setText(message.getText() + "Used Get Out Of Jail Card. ");
+
+                int i = 0;
+                while(!(currentPlayer.getChanceCards().get(i) instanceof GetOutOfJailChance))
+                    i++;
+
+                currentPlayer.getChanceCards().remove(i);
+                updatePlayers();
+            }
 
             updatePlayers();
         }
@@ -297,7 +305,7 @@ public class GameScreenController
         if (newPosition == 0)
         {
             game.getBank().payTo(currentPlayer, 200);
-            bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
+            updateBank();
             message.setText(message.getText() + "Collected $200. ");
 
             nextTurn(true);
@@ -332,7 +340,8 @@ public class GameScreenController
         //landed on a Property
         else if (landedSpace instanceof Property)
         {
-            ((Property) landedSpace).incFootCount();
+            if(((Property) landedSpace).isOwned())
+                ((Property) landedSpace).incFootCount();
 
             //landed on own Property
             if (((Property) landedSpace).getOwner() == currentPlayer)
@@ -377,7 +386,6 @@ public class GameScreenController
 
             if (((Railroad) landedSpace).getOwner() == currentPlayer)
             {
-                message.setText(message.getText() + "(own railroad)");
                 pass.setVisible(true);
             }
 
@@ -393,8 +401,6 @@ public class GameScreenController
             //landed on someone else's Railroad
             else if(((Railroad) landedSpace).getOwner() != currentPlayer)
             {
-                Player other = ((Railroad) landedSpace).getOwner();
-
                 payRent.setVisible(true);
             }
 
@@ -405,6 +411,7 @@ public class GameScreenController
         //landed on a Utility
         else if (landedSpace instanceof Utility)
         {
+            ((Utility) landedSpace).setDiceRoll(diceRoll);
             spaceInfoDisplay.setText(((Asset) landedSpace).getInfo());
 
             if (((Utility) landedSpace).getOwner() == currentPlayer)
@@ -424,9 +431,6 @@ public class GameScreenController
             //landed on someone else's Railroad
             else if(((Utility) landedSpace).getOwner() != currentPlayer)
             {
-                Player other = ((Utility) landedSpace).getOwner();
-                message.setText(message.getText() + "(" + other.getName() + "'s utility)");
-
                 payRent.setVisible(true);
             }
 
@@ -454,10 +458,12 @@ public class GameScreenController
 
         if (newPosition != 0 && newPosition < oldPosition)
         {
-            game.getBank().payTo(currentPlayer, 200);
-            message.setText(message.getText() + " Collected $200. ");
-            bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
-
+            if(!ChanceEvent)
+            {
+                game.getBank().payTo(currentPlayer, 200);
+                message.setText(message.getText() + " Collected $200. ");
+                updateBank();
+            }
             updatePlayers();
         }
     }
@@ -470,11 +476,10 @@ public class GameScreenController
         rollDice.setVisible(true);
         pass.setVisible(false);
         startGame.setVisible(false);
+        shuffle.setVisible(false);
 
-        spaceButtons.get(0).setDisable(false);
-        spaceButtons.get(8).setDisable(false);
-        spaceButtons.get(16).setDisable(false);
-        spaceButtons.get(24).setDisable(false);
+        for(int i = 0; i < 4; i++)
+            spaceButtons.get(i * 8).setDisable(false);
 
         for(int i = 0; i < game.getPlayers().size(); i++)
             sprites.get(i).setVisible(true);
@@ -482,6 +487,19 @@ public class GameScreenController
         doneSwapping = true;
 
         message.setText("Alright! Start rolling the dice, " + game.getPlayers().get(game.getCurrentPlayer()).getName() + "!");
+    }
+
+    @FXML
+    protected void handleShuffleButtonAction (ActionEvent event)
+    {
+        game.getBoard().shuffle();
+
+        for(int i = 0; i <= 31; i++)
+        {
+            ImageView imgView = game.getBoard().getSpaces().get(i).getImage();
+            spaceButtons.get(i).setGraphic(imgView);
+            spaceLabels.get(i).setText(game.getBoard().getSpaces().get(i).toString());
+        }
     }
 
     @FXML
@@ -534,13 +552,10 @@ public class GameScreenController
 
         else if (isTrading)
         {
-            int i;
+            this.offer = 0;
 
-            for (i = 0; i <= 31; i++)
-            {
-                if (spaceButtons.get(i) == event.getSource())
-                    this.offer = i;
-            }
+            while(spaceButtons.get(offer) != event.getSource())
+                this.offer++;
 
             Player currentPlayer = game.getPlayers().get(game.getCurrentPlayer());
             Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
@@ -557,7 +572,17 @@ public class GameScreenController
 
         else if (isChoosingProp)
         {
+            int i = 0;
+            while(spaceButtons.get(i) != event.getSource())
+                i++;
+
+            message.setText(((RentModifierChance)currentChance).useEffect((Asset) game.getBoard().getSpaces().get(i)));
+
+            for(int j = 0; j <= 31; j++)
+                spaceButtons.get(j).setDisable(false);
+
             isChoosingProp = false;
+            ChanceEvent = false;
             nextTurn(true);
         }
     }
@@ -573,12 +598,21 @@ public class GameScreenController
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayer());
         Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
 
-        if(currentSpace instanceof Asset)
+        if(ChanceEvent && (currentSpace instanceof Utility || currentSpace instanceof Railroad))
         {
-            currentPlayer.purchase((Asset) currentSpace);
-            message.setText(currentPlayer.getName() + " has purchased " + ((Asset) currentSpace).getName() + ". ");
+            currentPlayer.add((Asset) currentSpace);
+            message.setText("Purchased " + ((Asset) currentSpace).getName() + ". " +
+                    (currentPlayer.payTo(game.getBank(), ((Asset)currentSpace).getPrice())));
+            updateBank();
         }
 
+        else
+        {
+            currentPlayer.purchase((Asset) currentSpace);
+            message.setText(currentPlayer.getName() + " purchased " + ((Asset) currentSpace).getName() + ". ");
+        }
+
+        ChanceEvent = false;
         nextTurn(true);
     }
 
@@ -588,21 +622,15 @@ public class GameScreenController
         Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
 
         if(currentSpace instanceof Property)
-        {
-            currentPlayer.payRent((Property) currentSpace);
-            message.setText(currentPlayer.getName() + " paid rent to " + ((Property) currentSpace).getOwner().getName() + ". ");
-        }
-        else if(currentSpace instanceof Railroad)
-        {
-            currentPlayer.payRent((Railroad) currentSpace);
-            message.setText(currentPlayer.getName() + " paid rent to " + ((Railroad) currentSpace).getOwner().getName() + ". ");
-        }
-        else if(currentSpace instanceof Utility)
-        {
-            currentPlayer.payRent(((Utility) currentSpace), diceRoll);
-            message.setText(currentPlayer.getName() + " paid rent to " + ((Utility) currentSpace).getOwner().getName() + ". ");
-        }
+            message.setText(currentPlayer.payRent((Property) currentSpace));
 
+        else if(currentSpace instanceof Railroad)
+            message.setText(currentPlayer.payRent((Railroad) currentSpace));
+
+        else if(currentSpace instanceof Utility)
+            message.setText(currentPlayer.payRent(((Utility) currentSpace), diceRoll, ChanceEvent));
+
+        ChanceEvent = false;
         nextTurn(true);
     }
 
@@ -612,17 +640,12 @@ public class GameScreenController
         Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
 
         if(currentSpace instanceof IncomeTaxSpace)
-        {
-            currentSpace.onLand(currentPlayer);
-            message.setText(currentPlayer.getName() + " paid income tax to the bank. ");
-        }
-        else if(currentSpace instanceof LuxuryTaxSpace)
-        {
-            currentSpace.onLand(currentPlayer);
-            message.setText(currentPlayer.getName() + " paid luxury tax to the bank. ");
-        }
+            message.setText(currentPlayer.payTo(game.getBank(), ((IncomeTaxSpace) currentSpace).getTax(currentPlayer)));
 
-        //TODO find way to get how much tax was deducted, then increment bank cash
+        else if(currentSpace instanceof LuxuryTaxSpace)
+            message.setText(currentPlayer.payTo(game.getBank(),((LuxuryTaxSpace) currentSpace).getTax()));
+
+        updateBank();
 
         nextTurn(true);
     }
@@ -671,11 +694,7 @@ public class GameScreenController
         agree.setVisible(false);
 
         for(int i = 0; i <= 31; i++)
-        {
-            if (spaceButtons.get(i).isDisabled()) {
-                spaceButtons.get(i).setDisable(false);
-            }
-        }
+            spaceButtons.get(i).setDisable(false);
 
         message.setText("Cancelled trading.");
 
@@ -698,11 +717,7 @@ public class GameScreenController
                 " with " + ((Asset)currentSpace).getOwner().getName() + ". ");
 
         for(int j = 0; j <= 31; j++)
-        {
-            if (spaceButtons.get(j).isDisabled()) {
-                spaceButtons.get(j).setDisable(false);
-            }
-        }
+            spaceButtons.get(j).setDisable(false);
 
         updatePlayers();
 
@@ -710,15 +725,98 @@ public class GameScreenController
     }
 
     @FXML
-    protected void handleDrawChanceButtonAction (ActionEvent e) throws IOException {
+    protected void handleDrawChanceButtonAction (ActionEvent e) throws IOException
+    {
+        drawChance.setVisible(false);
+        ChanceEvent = true;
+
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayer());
         Space currentSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
 
+        Chance chanceDrawn;
+        if (game.getChanceDeck().isEmpty())
+            game.getChanceDeck().resetUnowned();
+        chanceDrawn = game.getChanceDeck().draw();
+        /**do {
+            chanceDrawn = game.getChanceDeck().draw();
+        } while(!(chanceDrawn instanceof RentModifierChance));*/
 
-        //TODO
-        //currentSpace.onLand(currentPlayer);
+        if(chanceDrawn instanceof ChangeMoneyChance)
+        {
+            message.setText(((ChangeMoneyChance)chanceDrawn).useEffect(currentPlayer));
+            nextTurn(true);
+        }
 
-        nextTurn(false);
+        else if(chanceDrawn instanceof GetOutOfJailChance)
+        {
+            message.setText(((GetOutOfJailChance)chanceDrawn).useEffect(currentPlayer) + chanceDrawn.getEffectDialogue() + " ");
+            nextTurn(true);
+        }
+
+        else if(chanceDrawn instanceof MoveToSpaceChance)
+        {
+            message.setText(((MoveToSpaceChance)chanceDrawn).useEffect(currentPlayer));
+            board.getChildren().remove(sprites.get(game.getCurrentPlayer()));
+            board.add(sprites.get(game.getCurrentPlayer()), index[currentPlayer.getPosition()][1], index[currentPlayer.getPosition()][0]);
+
+            if (((MoveToSpaceChance)chanceDrawn).playerCollectedStart())
+            {
+                game.getBank().add(-200);
+                updateBank();
+            }
+            Space newSpace = game.getBoard().getSpaces().get(currentPlayer.getPosition());
+
+            message.setText(message.getText() + newSpace.onLand(currentPlayer));
+            if (newSpace instanceof Property || newSpace instanceof Utility || newSpace instanceof Railroad)
+            {
+                try
+                {
+                    onLand(currentSpace.getPosition(), newSpace.getPosition(), currentPlayer, newSpace);
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+
+            else nextTurn(true);
+            updatePlayers();
+        }
+
+        else if(chanceDrawn instanceof RentModifierChance)
+        {
+            currentChance = chanceDrawn;
+            isChoosingProp = true;
+
+            for(int i = 0; i <= 31; i++)
+                spaceButtons.get(i).setDisable(true);
+
+            if(chanceDrawn.getEffect() == Chance.DOUBLE_RENT || chanceDrawn.getEffect() == Chance.RENOVATION || chanceDrawn.getEffect() == Chance.DILAPIDATED &&
+                    currentPlayer.getProperties().size() != 0)
+            {
+                message.setText(chanceDrawn.getEffectDialogue() + "\nClick on the property you want to apply this card on.");
+                for (int i = 0; i <= 31; i++)
+                    if (game.getBoard().getSpaces().get(i) instanceof Property && ((Property) game.getBoard().getSpaces().get(i)).getOwner() == currentPlayer)
+                        spaceButtons.get(i).setDisable(false);
+            }
+            else if (chanceDrawn.getEffect() == Chance.UTIL_RAIL_INC || chanceDrawn.getEffect() == Chance.UTIL_RAIL_DEC &&
+                    currentPlayer.getProperties().size() != 0)
+            {
+                message.setText(chanceDrawn.getEffectDialogue() + "\nClick on the utility or railroad you want to apply this card on.");
+                for(int i = 0; i <= 31; i++)
+                    if((game.getBoard().getSpaces().get(i) instanceof Utility && ((Utility) game.getBoard().getSpaces().get(i)).getOwner() == currentPlayer)||
+                            (game.getBoard().getSpaces().get(i) instanceof Railroad && ((Utility) game.getBoard().getSpaces().get(i)).getOwner() == currentPlayer))
+                        spaceButtons.get(i).setDisable(false);
+            }
+            else
+            {
+                for(int i = 0; i <= 31; i++)
+                    spaceButtons.get(i).setDisable(false);
+
+                message.setText(chanceDrawn.getEffectDialogue() + "\nChance card discarded.");
+                nextTurn(true);
+            }
+        }
     }
 
     /**
@@ -789,11 +887,11 @@ public class GameScreenController
             {
                 for (j = 0; j < game.getPlayers().get(i).getChanceCards().size(); j++)
                 {
-                    MenuItem text;
+                    MenuItem text = new MenuItem("");
                     if(game.getPlayers().get(i).getChanceCards().get(j) instanceof GetOutOfJailChance)
                         text = new MenuItem("Get Out Of Jail");
 
-                    menus[i][1].getMenus().get(1).getItems().add(new MenuItem(game.getPlayers().get(i).getRailroads().get(j).getName()));
+                    menus[i][1].getMenus().get(1).getItems().add(text);
                 }
             }
         }
@@ -804,8 +902,6 @@ public class GameScreenController
 
         if (game.checkGameEnd() != 0)
         {
-            //message.setText("Game has ended!");
-
             GameEndController endController = new GameEndController(game);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/alsid/view/GameEnd.fxml"));
@@ -845,5 +941,10 @@ public class GameScreenController
         game.getPlayers().get(0).add(-5000);
 
         nextTurn(true);
+    }
+
+    private void updateBank()
+    {
+        bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
     }
 }

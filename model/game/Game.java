@@ -11,7 +11,6 @@ public class Game
 	private ArrayList <Player> 	players;
 	private Deck 				chanceDeck;
 
-	//SHARMAINE
 	private Bank				bank;
 	private int 				currentPlayer = 0;
 	private Random 				dice = new Random();
@@ -19,7 +18,7 @@ public class Game
 	public static final int		PLAYER_BANKRUPT = 1;
 	public static final int 	TWO_FULL_SETS = 2;
 	public static final int 	BANK_EMPTY = 3;
-	
+
 	public Game ()
 	{
 		players = new ArrayList<>();
@@ -28,13 +27,17 @@ public class Game
 
 	public void initBoard()
 	{
-		gameBoard = new Board(players.size(), bank);
+		gameBoard = new Board(players.size());
 	}
 
 	public void initBank()
 	{
 		bank = new Bank(players.size());
 	}
+
+
+
+	//...GETTERS
 
 	public Board getBoard()
 	{
@@ -56,7 +59,8 @@ public class Game
 		return bank;
 	}
 
-	public Deck getChanceDeck() {
+	public Deck getChanceDeck()
+	{
 		return chanceDeck;
 	}
 
@@ -140,7 +144,7 @@ public class Game
 		 */
 		gameBoard.getSpaces().get(player.getPosition()).onLand(player);
 	}
-	
+
 	public int checkGameEnd ()
 	{
 		for (int i = 0; i < players.size(); i++)
