@@ -148,6 +148,19 @@ public class Player implements Payable
 		return ownedChance;
 	}
 
+	/**
+	 * Gets the net worth of the <code>this</code> Player (to be used for ranking).
+	 * @return Net worth of <code>this</code> Player.
+	 */
+	public double getNetWorth()
+	{
+		double propertyValue = 0;
+		for(int i = 0; i < getProperties().size(); i++)
+			propertyValue += getProperties().get(i).getHouseCount() * getProperties().get(i).getHousePrice();
+
+		return dMoney + propertyValue;
+	}
+
 
 	
 	//...METHODS
@@ -239,9 +252,11 @@ public class Player implements Payable
      */
 	public String payRent (Property prop)
 	{
+		String dialogue = payTo(prop.getOwner(), prop.getRent());
+
 		prop.incRentCollected(prop.getRent());
 		prop.resetTempMod();
-		return payTo(prop.getOwner(), prop.getRent());
+		return dialogue;
 	}
 
 	/**
@@ -251,8 +266,10 @@ public class Player implements Payable
      */
 	public String payRent (Railroad rail)
 	{
+		String dialogue = payTo(rail.getOwner(), rail.getRent());
+
 		rail.resetTempMod();
-		return payTo(rail.getOwner(), rail.getRent());
+		return dialogue;
 	}
 
 	/**
@@ -263,12 +280,13 @@ public class Player implements Payable
      */
 	public String payRent (Utility util, int nDiceRoll, boolean ChanceEvent)
 	{
+		String dialogue = payTo(util.getOwner(), util.getRent() * nDiceRoll);
 		util.resetTempMod();
 
 		if(ChanceEvent)
 			return payTo(util.getOwner(), nDiceRoll * 10);
 
-		return payTo(util.getOwner(), util.getRent() * nDiceRoll);
+		return dialogue;
 	}
 
 	/**
