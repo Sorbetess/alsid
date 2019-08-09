@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Property extends Asset {
 	
-	//...ATTRIBUTE
+	//...ATTRIBUTES
 
     /**
      * There are a total of two gray properties in each game.
@@ -52,15 +52,15 @@ public class Property extends Asset {
     public static final int FULLY_DEVELOPED = 4;
     public static final int HOTEL = 5;
 
-    private final int nColor;
-    private final double dHousePrice;
-    private final double[] aRentLevels;
-    private final double nMultiplier;
-    private final double nFootMax;
+    private final int       nColor;
+    private final double    dHousePrice;
+    private final double[]  aRentLevels;
+    private final double    nMultiplier;
+    private final double    nFootMax;
 
-    private double dRentCollected = 0;
-    private int nFootCount = 0;
-    private int nHouseCount = 0;
+    private double  dRentCollected = 0;
+    private int     nFootCount = 0;
+    private int     nHouseCount = 0;
     
     //...CONSTRUCTOR
 
@@ -124,7 +124,6 @@ public class Property extends Asset {
             case Property.COLOR_RED: return "#991c31";
             case Property.COLOR_ORANGE: return "#cf9211";
         }
-
         return "";
     }
 
@@ -159,8 +158,6 @@ public class Property extends Asset {
     public double getFootMax() {
         return nFootMax;
     }
-
-    //Getters for other variables
 
     /**
      * Gets the total rent collected for <code>this</code> property.
@@ -215,13 +212,20 @@ public class Property extends Asset {
         return 0; // TODO Update to -1?
     }
 
-        // Other methods
+    //...METHODS
 
     /**
      * Increases the foot traffic by one.
      */
     public void incFootCount() {
         nFootCount++;
+    }
+
+    /**
+     * Increases the rent collected by dRent.
+     */
+    public void incRentCollected(double dRent) {
+        dRentCollected += dRent;
     }
 
     /**
@@ -241,7 +245,7 @@ public class Property extends Asset {
         */
         boolean canDevelop = true;
 
-        if (!(this.getHouseCount() < FULLY_DEVELOPED)) {
+        if (!(this.getHouseCount() == FULLY_DEVELOPED)) {
             ArrayList <Property> asTemp = new ArrayList <>(); // Get all properties
             getOwner().getAssets().forEach(asset -> {
                 if (asset instanceof Property) {
@@ -290,9 +294,7 @@ public class Property extends Asset {
     @Override
     public String getInfo()
     {
-        String info = "";
-
-        info += this.getName();
+        String info = this.getName();
 
         if (this.isOwned())
              info += " (owned by " + this.getOwner().getName() + ")";
@@ -303,15 +305,19 @@ public class Property extends Asset {
         else info += "\n\uD83C\uDFE8";
 
         info += "\nPrice: $" + this.getPrice() +
-                "\nPrice every develop: $" + this.getHousePrice() +
-                "\nFoot Count: " + this.getFootCount() + "/" + this.getFootMax();
+                "\nPrice every develop: $" + this.getHousePrice();
 
-        if(this.canDevelop())
-            info += "\nCan develop: YES";
-        else info += "\nCan develop: NO";
+        if(this.isOwned())
+        {
+            info += "\nFoot Count: " + this.getFootCount() + "/" + this.getFootMax();
 
-        info += "\n\nRent: $" + this.getRent() +
-                "\nRent collected: $" + this.getRentCollected();
+            if(this.canDevelop())
+                info += "\nCan develop: YES";
+            else info += "\nCan develop: NO";
+
+            info += "\nRent: $" + this.getRent() +
+                    "\nRent collected: $" + this.getRentCollected();
+        }
 
         return info;
     }
