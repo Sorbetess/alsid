@@ -505,7 +505,7 @@
                 onAction="#handleEndGameButtonAction">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="/alsid/assets/button-start-game.png" />
+                    <Image url="/alsid/assets/button-endgame.png"/>
                 </ImageView>
             </graphic>
         </Button>
@@ -658,7 +658,7 @@
             </graphic>
         </Button>
 
-        <TextField fx:id="diceNumber" visible="true"
+        <TextField fx:id="diceNumber" visible="false"
                    GridPane.rowIndex="8" GridPane.columnIndex="1"/>
 
 
@@ -766,7 +766,7 @@
 
 
         <Button fx:id="bankrupt" text="BANKRUPT" mnemonicParsing="false"
-                style= "-fx-cursor: hand" visible="true"
+                style= "-fx-cursor: hand" visible="false"
                 GridPane.rowIndex="11" GridPane.columnIndex="1"
                 onAction="#handleBankruptButtonAction"/>
     </GridPane>

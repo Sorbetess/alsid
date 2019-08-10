@@ -216,7 +216,7 @@ public class Board
     public int getNearestRailroad(Player player)
     {
         int i = (player.getPosition() + 1) % spaces.size() ;
-        while (i != player.getPosition() - 2
+        while (i != player.getPosition() - 1
                 && !(spaces.get(i) instanceof Railroad))
         {
             i = (i + 1) % spaces.size();

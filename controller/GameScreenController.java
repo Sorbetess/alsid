@@ -10,8 +10,6 @@ import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -20,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.MoveTo;
 import javafx.util.Duration;
 
 public class GameScreenController
@@ -212,6 +209,11 @@ public class GameScreenController
     @FXML
     protected void handleStartGameButtonAction(ActionEvent event)
     {
+        if(swapposition1 != -1 && swapposition2 == -1)
+            spaceButtons.get(swapposition1).setDisable(false);
+
+        isSwapping = false;
+
         rollDice.setVisible(true);
         pass.setVisible(false);
         startGame.setVisible(false);
@@ -222,8 +224,6 @@ public class GameScreenController
 
         for(int i = 0; i < game.getPlayers().size(); i++)
             sprites.get(i).setVisible(true);
-
-        isSwapping = false;
 
         message.setText("Alright! Start rolling the dice, " + game.getPlayers().get(game.getCurrentPlayer()).getName() + "!");
     }
@@ -251,16 +251,13 @@ public class GameScreenController
         rollDice.setVisible(false);
         pass.setVisible(false);
 
-        /*int number = new Random().nextInt(6) + 1;
-
-        diceRoll = number;*/
-
-        int number = Integer.parseInt(diceNumber.getText());
+        int number = new Random().nextInt(6) + 1;
         diceRoll = number;
 
-        //if(oldPosition + number > 31)
-            newPosition = (oldPosition + number) % 32;
-        //else newPosition = oldPosition + number;
+        /**int number = Integer.parseInt(diceNumber.getText());
+        diceRoll = number;*/
+
+        newPosition = (oldPosition + number) % 32;
 
         currSpace = game.getBoard().getSpaces().get(newPosition);
 
@@ -508,6 +505,7 @@ public class GameScreenController
                     i++;
                 } while (spaceButtons.get(i) != event.getSource());
 
+                swapposition1 = i;
                 spaceButtons.get(swapposition1).setDisable(true);
             }
             else if(swapposition2 == -1)
@@ -518,6 +516,8 @@ public class GameScreenController
                 {
                     i++;
                 } while (spaceButtons.get(i) != event.getSource());
+
+                swapposition2 = i;
 
                 ImageView imgTemp1 = game.getBoard().getSpaces().get(swapposition1).getImage();
                 ImageView imgTemp2 = game.getBoard().getSpaces().get(swapposition2).getImage();
@@ -695,11 +695,11 @@ public class GameScreenController
 
         offeredSpace = game.getBoard().getSpaces().get(offerPosition);
 
-        currPlayer.trade(((Asset)currSpace).getOwner(), (Asset) currSpace, (Asset) offeredSpace);
-
         message.setText("Traded " + ((Asset) offeredSpace).getName() +
                 " for " + ((Asset) currSpace).getName() +
                 " with " + ((Asset) currSpace).getOwner().getName() + ". ");
+
+        currPlayer.trade(((Asset)currSpace).getOwner(), (Asset) currSpace, (Asset) offeredSpace);
 
         for(int j = 0; j <= 31; j++)
             spaceButtons.get(j).setDisable(false);
@@ -721,7 +721,7 @@ public class GameScreenController
 
         chanceDrawn = game.getChanceDeck().draw();
 
-        /*do {
+        /**do {
             chanceDrawn = game.getChanceDeck().draw();
         } while(!(chanceDrawn instanceof MoveToSpaceChance));*/
 
@@ -827,7 +827,7 @@ public class GameScreenController
             menus[i][1].getMenus().get(1).getItems().clear();
 
             playerDisplays.get(i).setText(game.getPlayers().get(i).getName() +
-                    "\n$" + game.getPlayers().get(i).getMoney());
+                    "\n\uD83D\uDCB0 $" + game.getPlayers().get(i).getMoney());
             playerDisplays.get(i).setVisible(true);
 
             //Update player's assets
@@ -890,6 +890,8 @@ public class GameScreenController
         {
             message.setText("Game has ended.\n");
 
+            startGame.setVisible(false);
+            shuffle.setVisible(false);
             endGame.setVisible(true);
 
             if(game.checkGameEnd() == Game.PLAYER_BANKRUPT)
@@ -951,6 +953,7 @@ public class GameScreenController
     @FXML
     protected void handleBankruptButtonAction()
     {
+        //game.getBank().setMoney(-1);
         game.getPlayers().get(0).add(-5000);
 
         nextTurn(true);
@@ -973,6 +976,6 @@ public class GameScreenController
 
     private void updateBank()
     {
-        bankMoney.setText("The Bank currently has $" + game.getBank().getMoney() + ".");
+        bankMoney.setText("\uD83C\uDFE6 The Bank currently has $" + game.getBank().getMoney() + ".");
     }
 }

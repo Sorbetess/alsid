@@ -244,7 +244,8 @@ public class Property extends Asset {
         */
         boolean canDevelop = true;
 
-        if (!(this.getHouseCount() == FULLY_DEVELOPED)) {
+        if(this.getHouseCount() == FULLY_DEVELOPED)
+        {
             ArrayList <Property> asTemp = new ArrayList <>(); // Get all properties
             getOwner().getAssets().forEach(asset -> {
                 if (asset instanceof Property) {

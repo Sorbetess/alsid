@@ -47,7 +47,7 @@ public class GameEndController
         sprites         = new ArrayList<>();
         playerDisplays  = new ArrayList<>();
 
-        rankPlayers();
+        rankedList = game.getPlayers();
 
         boxes.addAll(Arrays.asList(box1, box2, box3, box4));
         sprites.addAll(Arrays.asList(sprite1, sprite2, sprite3, sprite4));
@@ -78,15 +78,5 @@ public class GameEndController
             sprites.get(i).setTranslateX(25);
             boxes.get(i).setVisible(true);
         }
-    }
-
-    private void rankPlayers()
-    {
-        rankedList = game.getPlayers();
-
-        //TODO Maybe implement this is Game instead?
-        //for(int i = 0; i < game.getPlayers().size(); i++)
-        //{
-        //}
     }
 }

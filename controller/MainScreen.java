@@ -32,7 +32,7 @@ public class MainScreen extends Application
                     "-fx-background-size: cover;");
 
         // Load the background music
-        Media sound = new Media(new File("cityintheclouds.mp3").toURI().toString());
+        /*Media sound = new Media(new File("cityintheclouds.mp3").toURI().toString());
         mp = new MediaPlayer(sound);
         mp.setOnEndOfMedia(new Runnable()
         {
@@ -40,7 +40,7 @@ public class MainScreen extends Application
                 mp.seek(Duration.ZERO);
             }
         });
-        //mp.play();
+        mp.play();*/
 
         //Load the custom font
         Font.loadFont(

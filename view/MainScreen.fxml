@@ -21,10 +21,15 @@
         <Image url="/alsid/assets/mainscreen-title.png" />
     </ImageView>
 
+    <Label text="LANCE &amp; SHARMAINE" textAlignment="CENTER" GridPane.halignment="CENTER"
+           style="-fx-font-size: 20; -fx-font-family: 'Determination Mono';
+                   -fx-text-fill: #553619;" wrapText="true" mouseTransparent="true"
+           GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
     <HBox spacing="10" alignment="CENTER"
-          GridPane.rowIndex="2" GridPane.columnIndex="0"
+          GridPane.rowIndex="4" GridPane.columnIndex="0"
           GridPane.columnSpan="2">
-        <Button layoutX="13.0" layoutY="130.0" mnemonicParsing="false"
+        <Button layoutX="130.0" layoutY="130.0" mnemonicParsing="false"
                 style= "-fx-background-color: transparent; -fx-cursor: hand;"
                 onAction = "#handleStartButtonAction">
             <graphic>

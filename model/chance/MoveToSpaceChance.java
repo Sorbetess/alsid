@@ -32,8 +32,9 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
     /**
      * Gets a list of spaces of the chosen type, then assigns it.
      * @param spaceType Type of space to get.
+     * @param board Board to reference.
      */
-    private void assignRandomSpace(int spaceType)
+    private void assignRandomSpace(int spaceType, Board board)
     {
         Random rand = new Random();
 
@@ -65,7 +66,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 case Chance.GO_TO_PROP:
                 {
                     canCollectStart = false;
-                    assignRandomSpace(Board.PROPERTY);
+                    assignRandomSpace(Board.PROPERTY, board);
                     setText("You have a class at " + ((Asset) space).getName() + ". If you pass CADS, do not collect $200.");
                 } break;
 
@@ -88,7 +89,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 case Chance.TRIP_TO_PROP:
                 {
                     canCollectStart = true;
-                    assignRandomSpace(Board.PROPERTY);
+                    assignRandomSpace(Board.PROPERTY, board);
                     setText("There's an event at " + ((Asset) space).getName() + ". Collect $200 if you pass CADS.");
                 } break;
 
