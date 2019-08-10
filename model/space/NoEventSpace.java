@@ -13,6 +13,10 @@ public class NoEventSpace implements Space {
     private int         nPosition;
     private ImageView imgView;
 
+    /**
+     * Constructor for no event spaces.
+     * @param strName Name of this space.
+     */
     public NoEventSpace(String strName)
     {
         this.strName = strName;
@@ -47,11 +51,20 @@ public class NoEventSpace implements Space {
         nPosition = position;
     }
 
+    /**
+     * These spaces do not affect the player.
+     * @param player Player that landed on this space.
+     * @return String message of event.
+     */
     @Override
     public String onLand(Player player) {
         return player.getName() + " landed on the " + strName + " space. ";
     }
 
+    /**
+     * Returns the String form of this space.
+     * @return Name of this space.
+     */
     @Override
     public String toString()
     {

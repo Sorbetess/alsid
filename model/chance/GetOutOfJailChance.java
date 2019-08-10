@@ -5,7 +5,7 @@ import alsid.model.game.Player;
 /**
  * Class template for the get out of jail free card.
  */
-public class GetOutOfJailChance extends Chance implements PlayerApplicable{
+public class GetOutOfJailChance extends Chance implements PlayerApplicable {
 
     /**
      * Constructor for a get out of jail free card.
@@ -13,7 +13,7 @@ public class GetOutOfJailChance extends Chance implements PlayerApplicable{
     public GetOutOfJailChance()
     {
         super(Chance.GET_OUT_OF_JAIL,
-         "Get out of jail for free!\n\nUse this card next time you're in the SDFO and skip paying $50!");
+         "Get out of jail for free!\nUse this card next time you're in the SDFO and skip paying $50!");
     }
 
     /**

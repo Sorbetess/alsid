@@ -57,11 +57,19 @@ public class CommunityServiceSpace implements Space {
         return player.getName() + " landed on " + toString() + "! ";
     }
 
+    /**
+     * Getter for the payment that the player has to give when they land on this space.
+     * @return Payment when landed on ($50).
+     */
     public double getTax()
     {
         return 50;
     }
 
+    /**
+     * Returns the String form of this space.
+     * @return Name of this space.
+     */
     @Override
     public String toString()
     {

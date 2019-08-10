@@ -115,8 +115,9 @@ public class AddPlayersController
             // and load the Game Screen FXML file
             else
             {
-                game.initBoard();
-                game.getChanceDeck().initChance(game);
+                //game.initBoard();
+                //game.getChanceDeck().initChance(game);
+                game.initGame();
                 GameScreenController nextController = new GameScreenController(game);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/alsid/view/GameScreen.fxml"));

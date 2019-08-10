@@ -45,6 +45,10 @@ public class LuxuryTaxSpace implements Space {
         nPosition = position;
     }
 
+    /**
+     * Getter for the payment that the player has to give when they land on this space.
+     * @return Payment when landed on ($75).
+     */
     public double getTax()
     {
         return 75;
@@ -60,6 +64,10 @@ public class LuxuryTaxSpace implements Space {
         return player.getName() + " landed on the " + toString() + " space. ";
     }
 
+    /**
+     * Returns the String form of this space.
+     * @return Name of this space.
+     */
     @Override
     public String toString()
     {

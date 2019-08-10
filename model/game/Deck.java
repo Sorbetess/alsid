@@ -20,7 +20,11 @@ public class Deck {
      */
     public Deck() {
     }
-	
+
+    /**
+     * Initializes the chance cards.
+     * @param game To reference the board and bank for certain chance cards.
+     */
 	public void initChance(Game game)
     {
         Random rand = new Random();

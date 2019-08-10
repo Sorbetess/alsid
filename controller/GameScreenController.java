@@ -205,7 +205,7 @@ public class GameScreenController
         sprite3.setTranslateY(20);
         sprite4.setTranslateY(20);
 
-        game.initBank();
+        //game.initBank();
         updateBank();
     }
 
@@ -258,9 +258,9 @@ public class GameScreenController
         int number = Integer.parseInt(diceNumber.getText());
         diceRoll = number;
 
-        if(oldPosition + number > 31)
-            newPosition = oldPosition + number - 32;
-        else newPosition = oldPosition + number;
+        //if(oldPosition + number > 31)
+            newPosition = (oldPosition + number) % 32;
+        //else newPosition = oldPosition + number;
 
         currSpace = game.getBoard().getSpaces().get(newPosition);
 
@@ -798,7 +798,7 @@ public class GameScreenController
                 for(int i = 0; i <= 31; i++)
                     spaceButtons.get(i).setDisable(false);
 
-                message.setText(chanceDrawn.getEffectDialogue() + "\nChance card discarded.");
+                message.setText(chanceDrawn.getEffectDialogue() + "\nChance card discarded. ");
                 nextTurn(true);
             }
         }

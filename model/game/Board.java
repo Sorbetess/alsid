@@ -40,6 +40,9 @@ public class Board
         initSpaces();
     }
 
+    /**
+     * Initializes all of the spaces.
+     */
     private void initSpaces()
     {
         //initializing all properties
@@ -104,6 +107,10 @@ public class Board
                 sdfo, wifi, water, incomeTax, luxuryTax, chanceA, chanceB, chanceC));
     }
 
+    /**
+     * Getter for the spaces in the board.
+     * @return ArrayList of Spaces
+     */
     public ArrayList<Space> getSpaces()
     {
         return spaces;
@@ -135,6 +142,11 @@ public class Board
         }
     }
 
+    /**
+     * Returns all spaces that match the given constant.
+     * @param spaceType Type of space.
+     * @return ArrayList of spaces that match the given type.
+     */
     public ArrayList<Space> filterSpaceType(int spaceType)
     {
         ArrayList <Space> filteredSpaces = new ArrayList<>();
@@ -175,6 +187,11 @@ public class Board
         return filteredSpaces;
     }
 
+    /**
+     * Returns the position of the nearest utility that the <code>player</code> can move to.
+     * @param player Player to reference.
+     * @return Index of utility in board.
+     */
     public int getNearestUtility(Player player)
     {
         int i = (player.getPosition() + 1) % spaces.size() ;
@@ -191,6 +208,11 @@ public class Board
         return i;
     }
 
+    /**
+     * Returns the position of the nearest railroad that the <code>player</code> can move to.
+     * @param player Player to reference.
+     * @return Index of railroad in board.
+     */
     public int getNearestRailroad(Player player)
     {
         int i = (player.getPosition() + 1) % spaces.size() ;

@@ -6,6 +6,10 @@ import javafx.scene.image.Image;
 
 import java.util.*;
 
+/**
+ * Class for a player in the game. They perform many actions that advance the board state, including
+ * buying, trading and paying for assets, etc.
+ */
 public class Player implements Payable
 {
 	//...ATTRIBUTES
@@ -161,8 +165,6 @@ public class Player implements Payable
 		return dMoney + propertyValue;
 	}
 
-
-	
 	//...METHODS
 	
 	/**

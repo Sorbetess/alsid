@@ -12,6 +12,9 @@ public class IncomeTaxSpace implements Space {
     private int         nPosition;
     private ImageView imgView;
 
+    /**
+     * Constructor for an income tax space.
+     */
     public IncomeTaxSpace()
     {
         imgView = new ImageView(new Image("/alsid/assets/tile-tax.png"));
@@ -45,6 +48,13 @@ public class IncomeTaxSpace implements Space {
         nPosition = position;
     }
 
+    /**
+     * Gets the tax to be paid when the player lands on this space.
+     * If 10% of <code>player.getMoney()</code> is larger than $200, that amount
+     * will be paid by the player.
+     * @param player Player that landed on this space.
+     * @return Tax to be paid by the player.
+     */
     public double getTax(Player player)
     {
         if(player.getMoney() * 0.1 <= 200)
@@ -63,6 +73,10 @@ public class IncomeTaxSpace implements Space {
         return player.getName() + " landed on the " + toString() + " space. ";
     }
 
+    /**
+     * Returns the String form of this space.
+     * @return Name of this space.
+     */
     @Override
     public String toString()
     {

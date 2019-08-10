@@ -55,6 +55,10 @@ public class ChanceSpace implements Space {
         return player.getName() + " landed on the " + toString() + " space. ";
     }
 
+    /**
+     * Returns the string form of this space.
+     * @return Name of this space.
+     */
     @Override
     public String toString()
     {

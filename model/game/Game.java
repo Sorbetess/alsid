@@ -17,68 +17,103 @@ public class Game
 	public static final int 	TWO_FULL_SETS = 2;
 	public static final int 	BANK_EMPTY = 3;
 
+	/**
+	 * Constructor for a game instance.
+	 */
 	public Game ()
 	{
 		players = new ArrayList<>();
-		chanceDeck = new Deck();
 	}
 
-	public void initBoard()
+	/**
+	 * Initializes the game. Only do this after players have been added.
+	 */
+	public void initGame()
 	{
 		gameBoard = new Board(players.size());
-	}
-
-	public void initBank()
-	{
 		bank = new Bank(players.size());
+		chanceDeck = (new Deck());
+		chanceDeck.initChance(this);
 	}
-
-
 
 	//...GETTERS
 
+	/**
+	 * Getter for the gameboard.
+	 * @return Current board for <code>this</code> game.
+	 */
 	public Board getBoard()
 	{
 		return gameBoard;
 	}
 
+	/**
+	 * Getter for the players.
+	 * @return ArrayList of Players in this game.
+	 */
 	public ArrayList<Player> getPlayers()
 	{
 		return players;
 	}
 
+	/**
+	 * Getter for the current player.
+	 * @return Player number of the current player.
+	 */
 	public int getCurrentPlayer()
 	{
 		return currentPlayer;
 	}
 
+	/**
+	 * Getter for the bank.
+	 * @return The bank for this game.
+	 */
 	public Bank getBank()
 	{
 		return bank;
 	}
 
+	/**
+	 * Getter for the deck of Chance cards.
+	 * @return Deck of chance cards for this game.
+	 */
 	public Deck getChanceDeck()
 	{
 		return chanceDeck;
 	}
 
+	/**
+	 * Adds a player to this game.
+	 * @param player Player to add.
+	 */
 	public void addPlayer(Player player)
 	{
 		players.add(player);
 	}
 
+	/**
+	 * Removes a player from the current game.
+	 * @param player Player to remove.
+	 */
 	public void removePlayer(Player player)
 	{
 		players.remove(player);
 	}
 
+	/**
+	 * Moves to the next player's turn. If all players have taken their turn,
+	 * the first player will go again.
+	 */
 	public void nextTurn()
 	{
 		currentPlayer = (currentPlayer + 1) % players.size();
 	}
 
-
-
+	/**
+	 * Checks if a game ending condition has been met.
+	 * @return <code>0</code> if game has not yet ended. Will return a constant otherwise.
+	 */
 	public int checkGameEnd ()
 	{
 		for (Player player : players) {
@@ -98,6 +133,10 @@ public class Game
 		return 0;
 	}
 
+	/**
+	 * Sorts the players according to their standing. Total net worth (money + property value) is
+	 * checked first, then only money is checked to break ties.
+	 */
 	public void rankPlayers()
 	{
 		boolean hasTie = false;
