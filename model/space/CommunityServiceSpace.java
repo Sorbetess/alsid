@@ -49,8 +49,9 @@ public class CommunityServiceSpace implements Space {
     }
 
     /**
-     * Deducts $50 from the <code>player</code> that lands on <code>this</code> space and gives it to the <code>bank</code>.
-     * @param player Player that landed on this space.
+     * Returns the String version of this event.
+     * @param player Player that landed on <code>this</code> space.
+     * @return String version of event.
      */
     @Override
     public String onLand(Player player) {

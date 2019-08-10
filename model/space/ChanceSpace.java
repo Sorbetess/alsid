@@ -46,8 +46,9 @@ public class ChanceSpace implements Space {
     }
 
     /**
-     * Draws a Chance card and applies its effects to a player.
+     * Returns the String version of this event.
      * @param player Player that landed on <code>this</code> space.
+     * @return String version of event.
      */
     @Override
     public String onLand(Player player)

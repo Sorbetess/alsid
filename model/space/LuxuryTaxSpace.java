@@ -55,8 +55,9 @@ public class LuxuryTaxSpace implements Space {
     }
 
     /**
-     * Deducts $75 from the <code>player</code> that lands on <code>this</code> space.
-     * @param player Player that landed on this model.space.
+     * Returns the String version of this event.
+     * @param player Player that landed on <code>this</code> space.
+     * @return String version of event.
      */
     @Override
     public String onLand(Player player)

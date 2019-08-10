@@ -63,9 +63,9 @@ public class IncomeTaxSpace implements Space {
     }
 
     /**
-     * Deducts $200 or 10% of the income of the <code>player</code> that lands on <code>this</code> space, depending on
-     * which one is higher.
-     * @param player model.game.Player that landed on this space.
+     * Returns the String version of this event.
+     * @param player Player that landed on <code>this</code> space.
+     * @return String version of event.
      */
     @Override
     public String onLand(Player player)
