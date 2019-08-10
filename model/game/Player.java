@@ -17,7 +17,8 @@ public class Player implements Payable
 	private String 	strName;
 	private int 	nNumber;
 	private int 	nPosition;
-
+	private Image 	img;
+	
 	private double 				dMoney = 1500;
 	private ArrayList <Asset> 	assets;
 	private ArrayList <Chance> 	ownedChance;	
@@ -68,6 +69,15 @@ public class Player implements Payable
 	public int getPosition ()
 	{
 		return nPosition;
+	}
+
+	/**
+	 * Gets the image/sprite assigned to the <code>this</code> player.
+	 * @return The image/sprite assigned to the <code>this</code> player.
+	 */
+	public Image getImage()
+	{
+		return this.img;
 	}
 
 	/**
