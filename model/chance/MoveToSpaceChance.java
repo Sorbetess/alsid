@@ -21,7 +21,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
     /**
      * Constructor of chance cards that move the player to another space in the board.
      * @param effect Specific effect.
-     * @param board Board to refenence.
+     * @param board Board to reference.
      */
     public MoveToSpaceChance(int effect, Board board)
     {
@@ -32,9 +32,8 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
     /**
      * Gets a list of spaces of the chosen type, then assigns it.
      * @param spaceType Type of space to get.
-     * @param board Board to reference.
      */
-    private void assignRandomSpace(int spaceType, Board board)
+    private void assignRandomSpace(int spaceType)
     {
         Random rand = new Random();
 
@@ -66,7 +65,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 case Chance.GO_TO_PROP:
                 {
                     canCollectStart = false;
-                    assignRandomSpace(Board.PROPERTY, board);
+                    assignRandomSpace(Board.PROPERTY);
                     setText("You have a class at " + ((Asset) space).getName() + ". If you pass CADS, do not collect $200.");
                 } break;
 
@@ -89,7 +88,7 @@ public class MoveToSpaceChance extends Chance implements PlayerApplicable{
                 case Chance.TRIP_TO_PROP:
                 {
                     canCollectStart = true;
-                    assignRandomSpace(Board.PROPERTY, board);
+                    assignRandomSpace(Board.PROPERTY);
                     setText("There's an event at " + ((Asset) space).getName() + ". Collect $200 if you pass CADS.");
                 } break;
 

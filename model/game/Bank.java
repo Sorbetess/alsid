@@ -46,7 +46,7 @@ public class Bank implements Payable {
      */
     @Override
     public boolean isBankrupt() {
-        return money <= 0;
+        return money < 0;
     }
 
     /**

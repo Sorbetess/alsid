@@ -360,7 +360,6 @@ public class Player implements Payable
 		return this.nPosition < prevPosition;
 	}
 
-	//tbd
 	public void setPosition (int position)
 	{
 		this.nPosition = position;
@@ -380,10 +379,17 @@ public class Player implements Payable
 		otherPlayer.add(offer);
 		otherPlayer.removeAsset(currentSpace);
 
-		((Property) offer).resetFootTraffic();
-		((Property) currentSpace).resetFootTraffic();
+		if (offer instanceof Property && currentSpace instanceof Property)
+		{
+			((Property) offer).resetFootTraffic();
+			((Property) currentSpace).resetFootTraffic();
+		}
 	}
 
+	/**
+	 * Returns the string form of this player.
+	 * @return Name of this player.
+	 */
 	@Override
 	public String toString()
 	{

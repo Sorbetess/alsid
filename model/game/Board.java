@@ -195,7 +195,7 @@ public class Board
     public int getNearestUtility(Player player)
     {
         int i = (player.getPosition() + 1) % spaces.size() ;
-        while (i != player.getPosition() - 1
+        while (i != player.getPosition() - (player.getPosition() <= 0? -32: 1) // For cases where the player is at the starting space
                 && !(spaces.get(i) instanceof Utility))
         {
             i = (i + 1) % spaces.size();
@@ -216,7 +216,7 @@ public class Board
     public int getNearestRailroad(Player player)
     {
         int i = (player.getPosition() + 1) % spaces.size() ;
-        while (i != player.getPosition() - 1
+        while (i != player.getPosition() - 2
                 && !(spaces.get(i) instanceof Railroad))
         {
             i = (i + 1) % spaces.size();
