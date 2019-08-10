@@ -8,8 +8,8 @@ public class Deck {
 	
 	//...ATTRIBUTES
 
-    private ArrayList <Chance> cards = new ArrayList <Chance>();
-    private ArrayList <Chance> used = new ArrayList <Chance>();
+    private ArrayList <Chance> cards;
+    private ArrayList <Chance> used;
 
 	
 	
@@ -19,6 +19,8 @@ public class Deck {
      * Constructor for the starting deck in the game.
      */
     public Deck() {
+        cards = new ArrayList <>();
+        used = new ArrayList <>();
     }
 
     /**
