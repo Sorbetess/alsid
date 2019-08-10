@@ -11,7 +11,6 @@ public class Game
 
 	private Bank				bank;
 	private int 				currentPlayer = 0;
-	private Random 				dice = new Random();
 
 	public static final int		PLAYER_BANKRUPT = 1;
 	public static final int 	TWO_FULL_SETS = 2;
