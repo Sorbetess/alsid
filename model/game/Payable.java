@@ -15,7 +15,7 @@ public interface Payable {
 
     /**
      * Adds the given <code>amount</code> to the entity's reserve.
-     * @param amount
+     * @param amount Amount to add.
      */
     void add(double amount);
 

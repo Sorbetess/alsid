@@ -22,7 +22,7 @@ public interface Space {
     void setPosition(int position);
 
     /**
-     * Getter for this space's postion
+     * Getter for this space's position.
      * @return Position of this space.
      */
     int getPosition();
