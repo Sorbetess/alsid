@@ -269,15 +269,19 @@ public class Player implements Payable
      * Transfers corresponding rent money from <code>this</code> player to the <code>util</code>'s owner.
 	 * @param 	util 	The utility <code>this</code> player is currently located at.
 	 * @param	nDiceRoll	Current dice roll this turn.
+	 * @param 	ChanceEvent	If this payment is from a chance card.
 	 * @return 	<code>true</code> if the transaction is successful
      */
 	public String payRent (Utility util, int nDiceRoll, boolean ChanceEvent)
 	{
-		String dialogue = payTo(util.getOwner(), util.getRent() * nDiceRoll);
-		util.resetTempMod();
-
-		if(ChanceEvent)
-			return payTo(util.getOwner(), nDiceRoll * 10);
+		String dialogue;
+		if (ChanceEvent)
+			dialogue = payTo(util.getOwner(), nDiceRoll * 10);
+		else
+		{
+			dialogue = payTo(util.getOwner(), util.getRent() * nDiceRoll);
+			util.resetTempMod();
+		}
 
 		return dialogue;
 	}
